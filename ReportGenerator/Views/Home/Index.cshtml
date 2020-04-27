@@ -1,0 +1,244 @@
+﻿@*<p>@Session["AT"]</p>*@
+@*<select id="OrganizationDrop" class="form-control"></select>
+<br />
+<select id="ddlProjectvalue" class="form-control"></select>
+<br />
+<select id="buildDrop" class="form-control"></select>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Card title</h4>
+        <p class="card-text">Some example text. Some example text.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div>
+
+<div class="card-columns">
+    <div class="card bg-primary  col-md-3">
+        <div class="card-body text-center">
+            <p class="card-text">Some text inside the first card</p>
+        </div>
+    </div>
+    <div class="card bg-warning">
+        <div class="card-body text-center">
+            <p class="card-text">Some text inside the second card</p>
+        </div>
+    </div>
+    <div class="card bg-success">
+        <div class="card-body text-center">
+            <p class="card-text">Some text inside the third card</p>
+        </div>
+    </div>
+    <div class="card bg-danger">
+        <div class="card-body text-center">
+            <p class="card-text">Some text inside the fourth card</p>
+        </div>
+    </div>
+</div>
+<button id="b1">Click to c release</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //$('#dataTable').DataTable();
+
+
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });*@
+
+
+        //GetOrganization
+        @*var optionhtml1 = '<option value="' +
+            0 + '">' + "--Select Organization--" + '</option>';
+        $("#OrganizationDrop").append(optionhtml1);
+
+        $.ajax({
+            url: '@Url.Action("OrganizationList", "Home")',
+            type: 'Get',
+            data: {},
+            //dataType: 'json',
+            success: function (data1) {
+                data = JSON.parse(data1);
+                alert("Success");
+                var count = Object.keys(data).length;
+                if (count >= 1) {
+                    $.each(data.value, function (i) {
+                        var optionhtml = '<option value="' +
+                            data.value[i].accountId + '">' + data.value[i].accountName + '</option>';
+                        $("#OrganizationDrop").append(optionhtml);
+                    });
+                };
+            },
+
+            error: function (request, error) {
+                alert('Something went wrong');
+
+            }
+        });
+
+        //Select All Checkbox
+        $("#selectAll").on("click", function () {
+            $("#dataTable tr").each(function () {
+                //var isChecked = $("#chkPassport").is(":checked");
+                if ($(this).find("input").is(":checked")) {
+                    $(this).find("input").attr('checked', false);
+                }
+                else {
+                    $(this).find("input").attr('checked', true);
+                }
+            });
+        });
+
+
+
+        //project Dropdown
+        $('#OrganizationDrop').change(function () {
+            var orgName = $("#OrganizationDrop option:selected").text();
+
+            if (orgName != null || orgName != "" && pat != null || pat != "")
+                $.ajax({
+                    url: '@Url.Action("GetProjects","Home")',
+                    type: 'Get',
+                    data: { 'orgName': orgName },//, 'pat': pat },
+                    //dataType: 'json',
+                    success: function (data1) {
+                        data = JSON.parse(data1);
+                        var count = Object.keys(data).length;
+                        if (count >= 1) {
+                            var optionhtml1 = '<option value="' +
+                                0 + '">' + "--Select Project--" + '</option>';
+                            $("#ddlProjectvalue").append(optionhtml1);
+                            $.each(data.value, function (i) {
+                                var optionhtml = '<option value="' +
+                                    data.value[i].id + '">' + data.value[i].name + '</option>';
+                                $("#ddlProjectvalue").append(optionhtml);
+                            });
+                        };
+                    },
+
+                    error: function (request, error) {
+                        alert('Something went wrong');
+                    }
+                });
+        })
+
+        $('#ddlProjectvalue').change(function () {
+            var projectName = $("#ddlProjectvalue option:selected").text();
+            //iteration();
+            if (projectName != null || projectName != "")
+                $.ajax({
+                    url: '@Url.Action("Build","Home")',
+                    type: 'Get',
+                    data: { 'projectname': projectName },//, 'pat': pat },
+                    //dataType: 'json',
+                    success: function (data1) {
+                        data = JSON.parse(data1);
+                        var count = Object.keys(data).length;
+                        if (count >= 1) {
+                            var optionhtml1 = '<option value="' +
+                                0 + '">' + "--Select build--" + '</option>';
+                            $("#buildDrop").append(optionhtml1);
+                            $.each(data, function (i) {
+                                alert(data[i].id);
+                                var optionhtml = '<option value="' +
+                                    data[i].id + '">' + data[i].result + '</option>';
+                                $("#buildDrop").append(optionhtml);
+                            });
+                        };
+                    },
+
+                    error: function (request, error) {
+                        alert('Something went wrong');
+                    }
+                });
+
+             var orgName=$("#OrganizationDrop option:selected").text();
+            var projectName = $("#ddlProjectvalue option:selected").text();
+
+            if (orgName != null || orgName!="" || projectName != null || projectName != "")
+                $.ajax({
+                    url: '@Url.Action("IterationsList","Home")',
+                    type: 'Get',
+                    data: { 'ORG':orgName,'project': projectName },//, 'pat': pat },
+                    dataType: 'json',
+                    success: function (data) {
+                        var count = Object.keys(data).length;
+                        if (count >= 1) {
+                           
+                        };
+                    },
+
+                    error: function (request, error) {
+                        alert('Something went wrong');
+                    }
+                });
+
+        })
+        
+        function iteration()
+        {
+            var orgName=$("#OrganizationDrop option:selected").text();
+            var projectName = $("#ddlProjectvalue option:selected").text();
+
+            if (orgName != null || orgName!="" || projectName != null || projectName != "")
+                $.ajax({
+                    url: '@Url.Action("IterationsList","Home")',
+                    type: 'Get',
+                    data: { 'ORG':orgName,'project': projectName },//, 'pat': pat },
+                    dataType: 'json',
+                    success: function (data) {
+                        var count = Object.keys(data).length;
+                        if (count >= 1) {*@
+                            //var optionhtml1 = '<option value="' +
+                            //    0 + '">' + "--Select build--" + '</option>';
+                            //$("#buildDrop").append(optionhtml1);
+                            //$.each(data, function (i) {
+                            //    alert(data[i].id);
+                            //    var optionhtml = '<option value="' +
+                            //        data[i].id + '">' + data[i].result + '</option>';
+                            //    $("#buildDrop").append(optionhtml);
+                            //});
+        //                };
+        //            },
+
+        //            error: function (request, error) {
+        //                alert('Something went wrong');
+        //            }
+        //        });
+        //}
+        //Release
+        @*$('#b1').click(function () {
+            var projectName = $("#ddlProjectvalue option:selected").text();
+
+            if (projectName != null || projectName != "")
+                $.ajax({
+                    url: '@Url.Action("Release","Home")',
+                    type: 'Get',
+                    data: {},//, 'pat': pat },
+                    //dataType: 'json',
+                    success: function (data1) {
+                        data = JSON.parse(data1);
+                        var count = Object.keys(data).length;
+                        if (count >= 1) {
+                            var optionhtml1 = '<option value="' +
+                                0 + '">' + "--Select build--" + '</option>';
+                            $("#buildDrop").append(optionhtml1);
+                            $.each(data, function (i) {
+                                alert(data[i].id);
+                                var optionhtml = '<option value="' +
+                                    data[i].id + '">' + data[i].result + '</option>';
+                                $("#buildDrop").append(optionhtml);
+                            });
+                        };
+                    },
+
+                    error: function (request, error) {
+                        alert('Something went wrong');
+                    }
+                });
+        })
+    });
+</script>*@
