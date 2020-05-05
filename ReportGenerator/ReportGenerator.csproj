@@ -212,6 +212,7 @@
     <Content Include="Content\Icons\pbi.png" />
     <Content Include="Content\Icons\pbiagile.png" />
     <Content Include="Content\Icons\pbiscrum.png" />
+    <Content Include="Content\Icons\red.png" />
     <Content Include="Content\Icons\scrollupdown-icon.png" />
     <Content Include="Content\Icons\structure.png" />
     <Content Include="Content\Icons\task.png" />
@@ -220,6 +221,7 @@
     <Content Include="Content\Icons\testsuite.png" />
     <Content Include="Content\Icons\us.png" />
     <Content Include="Content\Icons\userstory.png" />
+    <Content Include="Content\Icons\yellow1.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

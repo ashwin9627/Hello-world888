@@ -3,9 +3,27 @@
     // Layout = "~/Views/Shared/_Layout.cshtml";
     Layout = "~/Views/Shared/_ProHealthLayout.cshtml";
 }
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 25000; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+
+
     .sizeNormal {
         font-size: 16px;
     }
@@ -87,19 +105,7 @@
     }
 
     /**/
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 25000; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
+
 
     /* Modal Content */
     /*.modal-content {*/
@@ -173,7 +179,122 @@
         background-color: #5cb85c;
         color: white;
     }
+
+
+
+    .modal-lg {
+        max-width: 80% !important;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .modal-dialog,
+    .modal-content {
+        /* 80% of window height */
+        height: 97%;
+    }
+
+    .card {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .modal-body {
+        /* 100% = dialog height, 120px = header + footer */
+        max-height: calc(100% - 0px) !important;
+        overflow-y: scroll;
+    }
 </style>
+@*<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">*@
+
+<!-- Modal content-->
+@*<div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="dataTable1"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        </div>*@
+
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div id="dataTable1"class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div id="myModal" class="modal" style="border-radius: 5px;">*@
+    @*<button type="button" class="close" data-dismiss="myModal">
+            ×
+        </button>
+    <div class="close"></div>*@
+    @*<div class="modal-header" style="padding: 0.5rem 1rem">
+        <h4 id="modal-title" style="font-size:25px;" class="modal-title display-4 ml-3"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>*@
+
+    @*<div id="dataTable1" class="modal-body" style="font-size:14px">*@
+        @*<div id="dataTable1"></div>*@
+    @*</div>*@
+    @*<div class="modal-footer">*@
+        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+    @*</div>
+    </div>*@
+    @*<div id="dataTable1"></div>*@
+@*</div>*@
+
+
+@*<div id="divPopup" style="display:none;"></div>*@
+
+<div id="myModal" class="modal">
+        <button type="button" class="close" data-dismiss="myModal">
+            ×
+        </button>
+        <div class="close"></div>
+        <div id="dataTable1"></div>
+    </div>
+
+@*<div class="modal fade" id="myModal">
+    <div class="modal-dialog  modal-lg ">
+
+        Modal content
+        <div class="modal-content " style="border-radius: 5px; ">
+            <div class="modal-header" style="padding: 0.5rem 1rem">
+                <h4 id="modal-title" style="font-size:25px;" class="modal-title display-4 ml-3"></h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="hide()">&times;</button>
+            </div>
+            <div id="dataTable1" class="modal-body " style="font-size:14px"></div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>*@
+@*<div id="dataTable1" class="modal-body " style="font-size:14px"></div>*@
 
 <div id="overlay"></div>
 @*<p>@Session["AT"]</p>*@
@@ -248,7 +369,7 @@
 
 </div>
 @*started icons*@
-<div class="row">
+<div class="row" id="row1">
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
             <div class="card-header card-header-warning card-header-icon">
@@ -305,7 +426,7 @@
                 <div class="card-icon">
                     <i class="fa fa-cog"></i>
                 </div>
-                <p class="card-category">Expired Workitem</p>
+                <p class="card-category">Slake</p>
                 <h3 class="card-title" id="workitemicon"></h3>
             </div>
             <div class="card-footer">
@@ -320,7 +441,7 @@
 @*icons Ended*@
 <div class="content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="row2">
             <div class="col-xl-6 col-lg-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
@@ -341,13 +462,14 @@
             </div>
             <div class="col-xl-6 col-lg-12">
                 <div class="card card-chart">
-                    <div class="card-header card-header-success">
+                    <div class="card-header card-header-success" style="background-color:white">
                         <div>
                             <div class="ct-chart" id="websiteViewsChart" style="width: 300px; height: 200px;" align="center"></div>
                         </div>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Critical Bugs report</h4>
+                        <p><img src="~/Content/Icons/yellow1.jpg" height="10" width="10" /> - warning   <img src="~/Content/Icons/red.png" height="10" width="10" /> - Critical</p>
 
                         <p class="card-title">
 
@@ -364,7 +486,7 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="row3">
             <div class="col-xl-6 col-lg-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
@@ -373,7 +495,6 @@
                     <div class="card-body">
                         <h4 class="card-title">Release Report</h4>
                         <p class="card-title">
-
                             <span class="text-success" id="releasespan"><i class="fa fa-long-arrow-up"></i>  </span> failed Releases found.
                         </p>
                     </div>
@@ -408,151 +529,189 @@
 </div>
 
 
-<div id="divPopup" style="display:none;"></div>
-
-<div id="myModal" class="modal">
-    <button type="button" class="close" data-dismiss="myModal">
-        ×
-    </button>
-    @*<div class="close"></div>*@
-    <div id="dataTable1"></div>
-</div>
 
 
-<div id="DataTableDiv" class="dvTableData">
-</div>
+
+
+@*<div id="DataTableDiv" class="dvTableData">
+    </div>*@
 <div id="orgchartsdiv">
 </div>
 
 @*started icons*@
-@*<div class="row">*@
-@*<div class="orgChartload">*@
-    @*started icons*@
-    
-        @*<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">content_copy</i>
-                    </div>
-                    <p class="card-category">Failed Builds</p>
-                    <h3 class="card-title" id="buildicon">
-                    </h3>
+<div class="row" id="row4">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">content_copy</i>
                 </div>
-                <div class="card-footer">
-                    <div class="stats">*@
-
-                        @*<i class="material-icons text-warning">warning</i>*@
-                        @*<a href="#pablo" class="warning-link">Get More Space...</a>*@
-
-                    @*</div>
+                <p class="card-category">Failed Builds</p>
+                <h3 class="card-title" id="orgbuild">
+                </h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    @*<i class="material-icons text-warning">warning</i>*@
+                    @*<a href="#pablo" class="warning-link">Get More Space...</a>*@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">store</i>
-                    </div>
-                    <p class="card-category">Failed Release</p>
-                    <h3 class="card-title" id="releaseicon"></h3>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">store</i>
                 </div>
-                <div class="card-footer">
-                    <div class="stats">*@
-
-                        @*<i class="material-icons">date_range</i> Last 24 Hours*@
-
-                    @*</div>
+                <p class="card-category">Failed Release</p>
+                <h3 class="card-title" id="orgrelease"></h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    @*<i class="material-icons">date_range</i> Last 24 Hours*@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">info_outline</i>
-                    </div>
-                    <p class="card-category">Critical Bugs</p>
-                    <h3 class="card-title" id="criticalbugicon"></h3>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">info_outline</i>
                 </div>
-                <div class="card-footer">
-                    <div class="stats">*@
-
-                        @*<i class="material-icons">local_offer</i> Tracked from Github*@
-
-                    @*</div>
+                <p class="card-category">Critical Bugs</p>
+                <h3 class="card-title" id="orgcriticalbug"></h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    @*<i class="material-icons">local_offer</i> Tracked from Github*@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                    <div class="card-icon">
-                        <i class="fa fa-cog"></i>
-                    </div>
-                    <p class="card-category">Expired Workitem</p>
-                    <h3 class="card-title" id="workitemicon"></h3>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="fa fa-cog"></i>
                 </div>
-                <div class="card-footer">
-                    <div class="stats">*@
-
-                        @*<i class="material-icons">update</i> Just Updated*@
-
-                    @*</div>
+                <p class="card-category">Stale</p>
+                <h3 class="card-title" id="orgworkitem"></h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    @*<i class="material-icons">update</i> Just Updated*@
                 </div>
             </div>
         </div>
-    </div>*@
-    
-    @*icons Ended*@
-    <div id="orgChartload">
+    </div>
+</div>
+
+@*icons Ended*@
+@*<div class="row" id="OrgRow">*@
+<div id="orgChartload">
+    <div class="container-fluid">
+        <h2>Build</h2>
+        <div class="row-cols-1">
+            <div class="col-lg-12" style="background-color:white">
+                @*col-xl-6*@
+                @*<div id="top_x_div"></div>*@
+                <canvas id="top_x_div"></canvas>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+    <div class="container-fluid">
+        <h2>Release</h2>
+        <div class="row-cols-1">
+            <div class="col-lg-12" style="background-color:white">
+                @*<div id="top_x_div_ReleaseBar"></div>*@
+                <canvas id="top_x_div_ReleaseBar"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@
+@*<div id="orgChartload1">
+    <div class="container-fluid">
+        <h2>Critical Bugs Meter</h2>
+        <div id="chart_div_criticalBug" align="center"  style="background-color:white"></div>
+
         <div class="container-fluid">
-            <h2>Build</h2>
+            <h2>WorkItems Exceeded Finishing date</h2>
             <div class="row-cols-1">
-                <div class="col-xl-612 col-lg-12" style="background-color:white">
-                    @*<div id="top_x_div"></div>*@
-                    <canvas id="top_x_div"></canvas>
-                </div>
-            </div>
-        </div>
-        <br />
 
-        <div class="container-fluid">
-            <h2>Release</h2>
-            <div class="row-cols-1">
-                <div class="col-xl-12 col-lg-12" style="background-color:white">
+                <div class="col-xl-12 col-lg-12" style="background-color:white">*@
                     @*<div id="top_x_div_ReleaseBar"></div>*@
-                    <canvas id="top_x_div_ReleaseBar"></canvas>
+                    @*<canvas id="top_x_div_workitem"></canvas>
                 </div>
             </div>
         </div>
     </div>
-    <div id="orgChartload1">
+</div>
+<div>*@
+
+
+    <div class="content">
         <div class="container-fluid">
-            <h2>Critical Bugs Meter</h2>
-            <div id="chart_div_criticalBug" align="center"></div>
+            <div class="row" id="orgChartload1">
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-success">
+                            <div id="chart_div_criticalBug" align="center" style="background-color:white"></div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Critical Bugs</h4>
+                            @*<p class="card-category">
+                                <span class="text-success" id="buildspan"><i class="fa fa-long-arrow-up"></i>  </span> Critical Bugs.
+                            </p>*@
+                            <p><img src="~/Content/Icons/yellow1.jpg" height="10" width="10" /> - warning   <img src="~/Content/Icons/red.png" height="10" width="10" /> - Critical</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                @*<i class="material-icons">access_time</i> updated 4 minutes ago*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-success">
+                            <div style="background-color:white">
+                                <canvas id="top_x_div_workitem"></canvas>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Stale</h4>
 
-            <div class="container-fluid">
-                <h2>WorkItems Exceeded Finishing date</h2>
-                <div class="row-cols-1">
+                            <p class="card-title">
 
-                    <div class="col-xl-12 col-lg-12" style="background-color:white">
-                        @*<div id="top_x_div_ReleaseBar"></div>*@
-                        <canvas id="top_x_div_workitem"></canvas>
+                                @*<span class="text-success" id="criticalbugspan"><i class="fa fa-long-arrow-up"></i>  </span> critical bugs found.*@
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                @*<i class="material-icons"">view work item</i>*@
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <div id="chart_div_criticalBug1"></div>
+
+
+
 
     </div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    @*<div id="chart_div_criticalBug1"></div>*@
 
-    <script>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script>
         var buildSession=0;
         var ReleaseCountTotal=0;
                 var modal = document.getElementById("myModal");
@@ -579,7 +738,11 @@
             var ReleaseStore = [];
             var CriticalStore = [];
             var WorkitemStore = [];
-            $('.row').hide();
+            //      $('.row').hide();
+            $('#row1').hide();
+            $('#row2').hide();
+            $('#row3').hide();
+            $('#row4').hide();
             $('#orgChartload').hide();
             $('#orgChartload1').hide();
             $('.orgChartload').hide();
@@ -650,7 +813,15 @@
                 //document.getElementById("orgChartload1").hidden = false;
                 $('#orgChartload').show();
                 $('#orgChartload1').show();
-                $('.row').hide();
+                //$('.row').hide();
+                $('#orgbuild').text("");
+                $('#orgrelease').text("");
+                $('#orgcriticalbug').text("");
+                $('#orgworkitem').text("");
+                $('#row1').hide();
+                $('#row2').hide();
+                $('#row4').show();
+                $('#row3').hide();
                // $(".badge badge-danger badge-pill").text(" ");
                 $("#critWorkitem").text("");
                 $("#WorkitemDeadLine").text("");
@@ -683,7 +854,7 @@
                                     var optionhtml = '<option value="' +
                                         data.value[i].id + '">' + data.value[i].name + '</option>';
                                     $("#ddlProjectvalue").append(optionhtml);
-                                   
+
                                 });
                                  OrganizationChart();
                                     //document.getElementById("overlay").style.display = "none";
@@ -730,7 +901,11 @@
             $('.orgChartload').hide();
             $('#orgChartload').hide();
             $('#orgChartload1').hide();
-            $('.row').show();
+            //$('.row').show();
+            $('#row1').show();
+            $('#row2').show();
+            $('#row3').show();
+            $('#row4').hide();
              // document.getElementsByClassName("row").hidden = false;
             var projectvalue = $("#ddlProjectvalue option:selected").val();
             if (projectvalue == "0") {
@@ -879,6 +1054,7 @@
                             })
                             jsonResult = count;
                             jsonResult4 = workitemcounttotal;
+                            $('#workitemspan').text(jsonResult);
                             google.charts.load('current', {'packages':['corechart']});
                             google.charts.setOnLoadCallback(drawChartDeadLine);
                             //document.getElementById("overlay").style.display = "none";
@@ -1203,7 +1379,7 @@
           if (selectedItem) {
               var topping = data.getValue(selectedItem.row, 0);
               modal.style.display = "block";
-              alert('The user selected ' + topping);
+              //alert('The user selected ' + topping);
 
                   tabledata = "<table id='dataTable'><thead><tr><th>Build ID</th><th>Build Number</th></thead><tbody>";
               var orgName = $("#OrganizationDrop option:selected").text();
@@ -1215,6 +1391,7 @@
                   tabledata += "</tbody></table>";
                   console.log(tabledata);
                   $("#dataTable1").append(tabledata);
+                    //$("#dataTable1").html(tabledata);
                     table = $('#dataTable').DataTable();
 
 
@@ -1222,10 +1399,6 @@
         }
 
         google.visualization.events.addListener(chart, 'select', selectHandler);
-
-            //
-
-
         chart.draw(data, options);
     }
     //function drawChartrelease() {
@@ -1318,7 +1491,7 @@
                         $('#dataTable').remove();
               var topping = data.getValue(selectedItem.row, 0);
               modal.style.display = "block";
-              alert('The user selected ' + topping);
+              //alert('The user selected ' + topping);
               var orgName = $("#OrganizationDrop option:selected").text();
               var projName = $("#ddlProjectvalue option:selected").text();
                   tabledata = "<table id='dataTable'><thead><tr><th>ID</th><th>Title</th><th>Assigned To</th></thead><tbody>";
@@ -1356,7 +1529,8 @@
             ]);
         jsonResult1 = 0;
             var options = {
-                title: 'Failed Releases'
+                title: 'Failed Releases',
+                  pieHole: 0.3,
             };
             ReleaseCountTotal = 0;
             var chart = new google.visualization.PieChart(document.getElementById('Releasechart'));
@@ -1375,8 +1549,8 @@
               var projName = $("#ddlProjectvalue option:selected").text();
      tabledata = "<table id='dataTable'><thead><tr><th>Release ID</th><th>Release Name</th><th>Status</th></thead><tbody>";
 
-                            $.each(ReleaseStore, function (i) {
-                                tabledata += "<tr class='tableData details-control'><td>" + ReleaseStore[i].id + "</td><td><a href='https://dev.azure.com/"+orgName+"/"+projName+"/_releaseProgress?_a=release-pipeline-progress&releaseId"+ReleaseStore[i].id+"'>" + ReleaseStore[i].name + "</td><td>" + ReleaseStore[i].status + "</td></tr > ";
+                            $.each(ReleaseStore.value, function (i) {
+                                tabledata += "<tr class='tableData details-control'><td>" + ReleaseStore.value[i].id + "</td><td><a href='https://dev.azure.com/"+orgName+"/"+projName+"/_releaseProgress?_a=release-pipeline-progress&releaseId="+ReleaseStore.value[i].id+"'>" + ReleaseStore.value[i].name + "</td><td>" + ReleaseStore.value[i].status + "</td></tr > ";
 
                   });
                   tabledata += "</tbody></table>";
@@ -1403,13 +1577,23 @@
 
                     var totalworkitem1 = jsonResult4;
                     var totaldata = totalworkitem1 - jsonResult;//jsonResultDeadline;
+                    if (totaldata < 0) {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Task', 'Hours per Day'],
+                            ['Expired Workitem', 0],//jsonResultworkdeadline],
+                            ['Other WorkItems', 0]
 
+                        ]);
+
+                    }
+                    else {
                         var data = google.visualization.arrayToDataTable([
                             ['Task', 'Hours per Day'],
                             ['Expired Workitem', jsonResult],//jsonResultworkdeadline],
                             ['Other WorkItems', totaldata]
 
                         ]);
+                    }
 
                         var options = {
                             title: 'WorkItems'
@@ -1426,7 +1610,7 @@
                         $('#dataTable').remove();
               var topping = data.getValue(selectedItem.row, 0);
               modal.style.display = "block";
-              alert('The user selected ' + topping);
+              //alert('The user selected ' + topping);
               var orgName = $("#OrganizationDrop option:selected").text();
               var projName = $("#ddlProjectvalue option:selected").text();
                   tabledata = "<table id='dataTable'><thead><tr><th>WorkItem ID</th><th>WorkItem Name</th><th>Assigned To</th></thead><tbody>";
@@ -1536,11 +1720,14 @@
             $.each(dataLineChartStore,function (i) {
                 label.push(dataLineChartStore[i].ProjectName);
             })
-            console.log(label);
+               console.log(label);
+               var buildDisplay = 0;
             $.each(dataLineChartStore,function (j) {
-
+                buildDisplay = buildDisplay + dataLineChartStore[j].BuildCount;
                 datastoreBuildCount.push(dataLineChartStore[j].BuildCount);
             })
+               $('#orgbuild').text(buildDisplay);
+               console.log(buildDisplay);
             console.log(datastoreBuildCount);
     //dataLineChartStore.forEach(function(value, index, array){
     //    data.addRow([
@@ -1595,16 +1782,19 @@
             console.log(dataLineChartStore)
             // add each element via forEach loop
             var label = [];
+            var releaseDisplay = 0;
             var datastoreReleaseCount = [];
             $.each(dataLineChartStore,function (i) {
                 label.push(dataLineChartStore[i].ProjectName);
+
             })
 
             $.each(dataLineChartStore,function (j) {
-
+                releaseDisplay = releaseDisplay + dataLineChartStore[j].ReleaseCount;
                 datastoreReleaseCount.push(dataLineChartStore[j].ReleaseCount);
             })
-
+            $('#orgrelease').text(releaseDisplay);
+            console.log("Org release total count" + releaseDisplay)
     //dataLineChartStore.forEach(function(value, index, array){
     //    data.addRow([
     //      value.ProjectName,
@@ -1660,9 +1850,12 @@
             //    [dataLineChartStoreWorkItem[0]["ProjectName"], dataLineChartStoreWorkItem[0]["CriticalBugCount"]],
             //]);
             var bugstore = 0;
+
             $.each(dataLineChartStoreWorkItem, function (i) {  //  dataLineChartStore dataLineChartStoreWorkItem
                 bugstore = bugstore + dataLineChartStoreWorkItem[i].CriticalBugCount;
+
             })
+            $('#orgcriticalbug').text(bugstore);
 
             var bug;
             if (bugstore == 5) {
@@ -1711,16 +1904,29 @@
             //document.getElementById("overlay").style.display = "block";
             //document.getElementById("load").hidden = false;
                        // add each element via forEach loop
+
+            var grapharea = document.getElementById("top_x_div_workitem").getContext("2d");
+            //if()
+            //var myChart = new Chart(grapharea, { type: 'bar', data: barData, options: barOptions });
+            $('#top_x_div_workitem').html("");
+
+           // myChart.destroy();
+
             var label = [];
             var datastoreworkitemCount = [];
-            $.each(dataLineChartStore,function (i) {
+                       $.each(dataLineChartStore,function (i) {
                 label.push(dataLineChartStore[i].ProjectName);
             })
             console.log(label);
+            var workitemDisplay = 0;
             $.each(dataLineChartStoreWorkItem,function (j) {  //dataLineChartStoreWorkItem
-
                 datastoreworkitemCount.push(dataLineChartStoreWorkItem[j].WorkItemDeadLineCount);
+                var storeData = parseInt(dataLineChartStoreWorkItem[j].WorkItemDeadLineCount);
+                workitemDisplay = workitemDisplay + storeData;
+                console.log(workitemDisplay);
             })
+            console.log(workitemDisplay);
+            $('#orgworkitem').text(workitemDisplay);
             var ctx = document.getElementById('top_x_div_workitem').getContext('2d');
             options = {
                  responsive: true,
@@ -1747,6 +1953,6 @@
                 }
             });
              options: {}
-            
+
         }
-    </script>
+</script>
