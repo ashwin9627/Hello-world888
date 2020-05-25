@@ -91,7 +91,7 @@ namespace ReportGenerator.Controllers
             return output;
         }
         public ActionResult About()
-        {
+        { 
             return View();
         }
         public object Build(string projectname)
