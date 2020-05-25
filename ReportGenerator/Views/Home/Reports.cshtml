@@ -1,15 +1,12 @@
 ﻿@{
-    // Layout = "~/Views/Shared/_Dash.cshtml";
-    // Layout = "~/Views/Shared/_Layout.cshtml";
+    
     Layout = "~/Views/Shared/_ProHealthLayout.cshtml";
 }
-@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
     .modal {
-        display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 25000; /* Sit on top */
         padding-top: 100px; /* Location of the box */
@@ -37,12 +34,6 @@
     }
 
     #load {
-        /*border: 12px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 12px solid #444444;
-            width: 70px;
-            height: 70px;
-            animation: spin 1s linear infinite;*/
         position: sticky;
         z-index: 3;
         -webkit-touch-callout: none; /* iOS Safari */
@@ -64,7 +55,7 @@
         background-color: rgba(0,0,0,0.5);
         z-index: 2;
     }
-    
+
     td.details-control {
         background: url('/examples/resources/details_open.png') no-repeat center center;
         cursor: pointer;
@@ -104,14 +95,23 @@
     background-color:aqua;*/
     }
 
+    #sprintDrop {
+        background-color: white;
+        color: black;
+    }
+
+    #daysDrop {
+        background-color: white;
+        color: black;
+    }
     /**/
 
 
     /* Modal Content */
-    /*.modal-content {*/
+    
     #dataTable1 {
         padding: 2px 16px;
-        position: fixed;
+        /*position: fixed;*/
         background-color: #fefefe;
         margin: 10%;
         padding: 0;
@@ -206,168 +206,85 @@
         max-height: calc(100% - 0px) !important;
         overflow-y: scroll;
     }
+    .modal-lg {
+    max-width: 80% !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.modal-dialog,
+.modal-content {
+    /* 80% of window height */
+    height: 97%;
+}
+
+.card {
+
+}
+
+.modal-body {
+    /* 100% = dialog height, 120px = header + footer */
+    max-height: calc(100% - 0px) !important;
+    overflow-y: scroll;
+}
+
 </style>
-@*<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">*@
+<div id="overlay"></div>
 
-<!-- Modal content-->
-@*<div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="dataTable1"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog  modal-lg ">
+        <!-- Modal content-->
+        <div class="modal-content" style="border-radius: 5px; ">
+            <div class="modal-header" style="padding: 0.5rem 1rem">
+                <h4 id="modal-title" style="font-size:25px;" class="modal-title display-4 ml-3"></h4>
+                <button type="button" class="close" style="box-shadow:none" data-dismiss="modal">&times;</button> 
+                @*onclick="hide()"*@
             </div>
-
+            <div id="dataTable12" class="modal-body " style="font-size:14px">
+                <div id="dataTable1"></div>
+            </div>
+            <div class="modal-footer"></div>
         </div>
-    </div>
 
-        </div>*@
-
-<div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div id="dataTable1"class="modal-body">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
     </div>
 </div>
 
-
-@*<div id="myModal" class="modal" style="border-radius: 5px;">*@
-    @*<button type="button" class="close" data-dismiss="myModal">
-            ×
-        </button>
-    <div class="close"></div>*@
-    @*<div class="modal-header" style="padding: 0.5rem 1rem">
-        <h4 id="modal-title" style="font-size:25px;" class="modal-title display-4 ml-3"></h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-    </div>*@
-
-    @*<div id="dataTable1" class="modal-body" style="font-size:14px">*@
-        @*<div id="dataTable1"></div>*@
-    @*</div>*@
-    @*<div class="modal-footer">*@
-        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
-    @*</div>
-    </div>*@
-    @*<div id="dataTable1"></div>*@
-@*</div>*@
-
-
-@*<div id="divPopup" style="display:none;"></div>*@
-
-<div id="myModal" class="modal">
-        <button type="button" class="close" data-dismiss="myModal">
-            ×
-        </button>
-        <div class="close"></div>
-        <div id="dataTable1"></div>
-    </div>
-
-@*<div class="modal fade" id="myModal">
-    <div class="modal-dialog  modal-lg ">
-
-        Modal content
-        <div class="modal-content " style="border-radius: 5px; ">
-            <div class="modal-header" style="padding: 0.5rem 1rem">
-                <h4 id="modal-title" style="font-size:25px;" class="modal-title display-4 ml-3"></h4>
-                <button type="button" class="close" data-dismiss="modal" onclick="hide()">&times;</button>
-            </div>
-            <div id="dataTable1" class="modal-body " style="font-size:14px"></div>
-            <div class="modal-footer"></div>
-        </div>
-    </div>
-</div>*@
-@*<div id="dataTable1" class="modal-body " style="font-size:14px"></div>*@
-
-<div id="overlay"></div>
-@*<p>@Session["AT"]</p>*@
 <br />
 <div class="form-horizontal" style="font-size: 16px; margin-left: 0.5%">
     <div class="form-row">
-        <div class="col-xs-4">
-            <label class="control-label display-4  sizeNormal" style="padding-right: 40px">Organization</label>
+        <div class="col-md-3">
+            <label class="control-label" style="padding-right: 40px">Organization</label>
             <select name="cs3" id="OrganizationDrop" class="form-control borderRadius width" style="opacity:0.8;"> </select>
         </div>
 
-        <div class="col-xs-4 ml-4">
+        <div class="col-md-3">
 
-            <label class="control-label display-4  sizeNormal" style="padding-right:40px">Project Name</label>
+            <label class="control-label" style="padding-right:40px">Project Name</label>
             <select name="cs3" id="ddlProjectvalue" class="form-control borderRadius width" style="opacity:0.8;"> </select>
         </div>
-        @*<div class="col-xs-4 ml-4">
-                <label class="control-label display-4  sizeNormal" style="padding-right:40px">View All Projects</label>
-                <br />
-                <button id="SelectAllProject" class="btn btn-primary">View Records</button>
-            </div>*@
-        @*<div class="col-xs-4 ml-4">
-                <label class="control-label display-4  sizeNormal" style="padding-right:40px">View Graph</label>
-                <br />
-                <button id="clickHere" class="btn btn-primary">View Graph</button>
-            </div>*@
+        <div class="col-md-3">
 
-
+            <label class="control-label" style="padding-right:40px">Sprint</label>
+            <select name="cs3" id="sprintDrop" class="form-control borderRadius width" style="opacity:0.8;"> </select>
+        </div>
+        <div class="col-md-3">
+            <label class="control-label" style="padding-right: 40px">Days</label>
+            <select name="cs3" id="daysDrop" class="form-control borderRadius width" style="opacity:0.8;">
+                <option>21 Days</option>
+                <option>7 Days</option>
+                <option>14 Days</option>
+                <option>30 Days</option>
+            </select>
+        </div>
     </div>
 </div>
 
 
 <br />
 <img id="load" style="margin-left:35%" height="100" width="100" src="~/Content/Icons/loadinggif.gif" hidden />
-<div align="center">
-    <div class="row" id="ProjCountsLabel" style="margin-top: 10px;" align="center">
-        @*<label class="bg-info text-white badge-pill">Project Level Counts</label>*@
-    </div>
-    <div class="row" id="ProjCounts" style="margin-left: 300px;">
-        @*<label for="orgsDropdown" id="ProjCountsLabel" style="margin-top:60px;">
-                <b>
-                    <img src="~/Content/Images/Project.png" />
-                </b>
-            </label>*@
-        @*<ul class="list-group" style="width:70%; margin-left:20px; " align="center">
-            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-family:Calibri">
-                Failed Build
-                <span class="badge badge-danger badge-pill" id="build1"></span>
-            </li>
 
-            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-family:Calibri">
-                Failed Release
-                <span class="badge badge-danger badge-pill" id="release1"></span>
-            </li>
-
-
-            <li id="bugid" class="list-group-item d-flex justify-content-between align-items-center" style="font-family:Calibri">
-                Critical Bugs
-                <span class="badge badge-danger badge-pill" id="critWorkitem"></span>
-            </li>*@
-
-        @*<ul class="list-group" style="width:40%; margin-left:20px; ">*@
-
-        @*<li class="list-group-item d-flex justify-content-between align-items-center" style="font-family:Calibri">
-                    Work Items Exceeds the finish Date
-                    <span class="badge badge-danger badge-pill" id="WorkitemDeadLine"></span>
-                </li>
-            </ul>*@
-        <br />
-
-    </div>
-
-</div>
 @*started icons*@
 <div class="row" id="row1">
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
@@ -382,8 +299,6 @@
             </div>
             <div class="card-footer">
                 <div class="stats">
-                    @*<i class="material-icons text-warning">warning</i>*@
-                    @*<a href="#pablo" class="warning-link">Get More Space...</a>*@
                 </div>
             </div>
         </div>
@@ -445,7 +360,8 @@
             <div class="col-xl-6 col-lg-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
-                        <div class="ct-chart" id="dailySalesChart"></div>
+
+                        <canvas class="ct-chart" id="dailySalesChart" style="background-color:white"></canvas>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Build report</h4>
@@ -455,6 +371,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
+                            <button id="buildButton" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="margin-right:25px;">View Details</button>
                             @*<i class="material-icons">access_time</i> updated 4 minutes ago*@
                         </div>
                     </div>
@@ -477,6 +394,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
+                        <button id="CriticalBugButton" class="btn btn-success" data-toggle="modal" data-target="#myModal">View Details</button>
                         <div class="stats">
                             @*<i class="material-icons"">view work item</i>*@
                         </div>
@@ -490,7 +408,7 @@
             <div class="col-xl-6 col-lg-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
-                        <div class="ct-chart" id="Releasechart"></div>
+                        <canvas class="ct-chart" id="Releasechart" style="background-color:white"></canvas>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Release Report</h4>
@@ -500,6 +418,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
+                            <button id="releaseButton" class="btn btn-success"data-toggle="modal" data-target="#myModal">View Details</button>
                             @*<i class="material-icons">access_time</i> updated 4 minutes ago*@
                         </div>
                     </div>
@@ -508,7 +427,7 @@
             <div class="col-xl-6 col-lg-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
-                        <div class="ct-chart" id="workitemchart"></div>
+                        <canvas class="ct-chart" id="workitemchart" style="background-color:white"></canvas>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Expired WorkItems</h4>
@@ -519,6 +438,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
+                            <button id="slakeButton" class="btn btn-success" data-toggle="modal" data-target="#myModal">View Details</button>
                             @*<i class="material-icons">access_time</i> updated 4 minutes ago*@
                         </div>
                     </div>
@@ -528,224 +448,51 @@
     </div>
 </div>
 
-
-
-
-
-
-@*<div id="DataTableDiv" class="dvTableData">
-    </div>*@
-<div id="orgchartsdiv">
-</div>
-
-@*started icons*@
-<div class="row" id="row4">
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
-                </div>
-                <p class="card-category">Failed Builds</p>
-                <h3 class="card-title" id="orgbuild">
-                </h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                    @*<i class="material-icons text-warning">warning</i>*@
-                    @*<a href="#pablo" class="warning-link">Get More Space...</a>*@
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">store</i>
-                </div>
-                <p class="card-category">Failed Release</p>
-                <h3 class="card-title" id="orgrelease"></h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                    @*<i class="material-icons">date_range</i> Last 24 Hours*@
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">info_outline</i>
-                </div>
-                <p class="card-category">Critical Bugs</p>
-                <h3 class="card-title" id="orgcriticalbug"></h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                    @*<i class="material-icons">local_offer</i> Tracked from Github*@
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-                <div class="card-icon">
-                    <i class="fa fa-cog"></i>
-                </div>
-                <p class="card-category">Stale</p>
-                <h3 class="card-title" id="orgworkitem"></h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                    @*<i class="material-icons">update</i> Just Updated*@
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*icons Ended*@
-@*<div class="row" id="OrgRow">*@
-<div id="orgChartload">
-    <div class="container-fluid">
-        <h2>Build</h2>
-        <div class="row-cols-1">
-            <div class="col-lg-12" style="background-color:white">
-                @*col-xl-6*@
-                @*<div id="top_x_div"></div>*@
-                <canvas id="top_x_div"></canvas>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-    <div class="container-fluid">
-        <h2>Release</h2>
-        <div class="row-cols-1">
-            <div class="col-lg-12" style="background-color:white">
-                @*<div id="top_x_div_ReleaseBar"></div>*@
-                <canvas id="top_x_div_ReleaseBar"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-@*</div>*@
-@*<div id="orgChartload1">
-    <div class="container-fluid">
-        <h2>Critical Bugs Meter</h2>
-        <div id="chart_div_criticalBug" align="center"  style="background-color:white"></div>
-
-        <div class="container-fluid">
-            <h2>WorkItems Exceeded Finishing date</h2>
-            <div class="row-cols-1">
-
-                <div class="col-xl-12 col-lg-12" style="background-color:white">*@
-                    @*<div id="top_x_div_ReleaseBar"></div>*@
-                    @*<canvas id="top_x_div_workitem"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div>*@
-
-
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row" id="orgChartload1">
-                <div class="col-xl-6 col-lg-12">
-                    <div class="card card-chart">
-                        <div class="card-header card-header-success">
-                            <div id="chart_div_criticalBug" align="center" style="background-color:white"></div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Critical Bugs</h4>
-                            @*<p class="card-category">
-                                <span class="text-success" id="buildspan"><i class="fa fa-long-arrow-up"></i>  </span> Critical Bugs.
-                            </p>*@
-                            <p><img src="~/Content/Icons/yellow1.jpg" height="10" width="10" /> - warning   <img src="~/Content/Icons/red.png" height="10" width="10" /> - Critical</p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                @*<i class="material-icons">access_time</i> updated 4 minutes ago*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-12">
-                    <div class="card card-chart">
-                        <div class="card-header card-header-success">
-                            <div style="background-color:white">
-                                <canvas id="top_x_div_workitem"></canvas>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Stale</h4>
-
-                            <p class="card-title">
-
-                                @*<span class="text-success" id="criticalbugspan"><i class="fa fa-long-arrow-up"></i>  </span> critical bugs found.*@
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                @*<i class="material-icons"">view work item</i>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-    </div>
-    @*<div id="chart_div_criticalBug1"></div>*@
-
-</div>
+@*<div id="orgchartsdiv">
+</div>*@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="~/JSFile/sprint.js"></script>
+<script src="~/JSFile/popup.js"></script>
 
 <script>
         var buildSession=0;
         var ReleaseCountTotal=0;
                 var modal = document.getElementById("myModal");
-                //var ReleaseCount;
-                //var workitemdeadline;
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
             }
-            $('.close').click(function () { //(event) {
-                   // if (event.target == modal) {
-                        modal.style.display = "none";
-                    //}
-            })
+            //$('.close').click(function () { //(event) {
+            //       // if (event.target == modal) {
+            //            modal.style.display = "none";
+            //        //}
+            //})
         var failedcountBuild;
-        var resultId=0;
+    var resultId = 0;
+    var iterationStore = [];
+    var FailedBuildListStore = [];
+    var ReleaseStore = [];
+    var FailedReleaseListStore = [];
+    var BugList = [];
+    var WorkitemStore = [];
+    
+    var TotalBuildList = [];
+    var TotalReleaseList = [];
+    var TotalBugList = [];
+    var TotalslakeList = [];
         $(document).ready(function () {
-            //$('#dataTable').DataTable();
-            //var FailedBuildListStore=[];
-            var FailedReleaseListStore=[];
+            
             var DataStore = [];
             var BuildStore = [];
-            var ReleaseStore = [];
             var CriticalStore = [];
-            var WorkitemStore = [];
-            //      $('.row').hide();
+
             $('#row1').hide();
             $('#row2').hide();
             $('#row3').hide();
             $('#row4').hide();
-            $('#orgChartload').hide();
-            $('#orgChartload1').hide();
-            $('.orgChartload').hide();
+            
             $('.dropdown-submenu a.test').on("click", function (e) {
                 $(this).next('ul').toggle();
                 e.stopPropagation();
@@ -771,10 +518,11 @@
                     //alert("Success");
                     var count = Object.keys(data).length;
                     if (count >= 1) {
-                        $.each(data.value, function (i) {
+                        $.each(data, function (i) { //data.value
 
                             var optionhtml = '<option value="' +
-                                data.value[i].accountId + '">' + data.value[i].accountName + '</option>';
+                                //data.value[i].accountId + '">' + data.value[i].accountName + '</option>';
+                                 data[i].accountId + '">' + data[i].accountName + '</option>';
                             $("#OrganizationDrop").append(optionhtml);
                         });
                     };
@@ -788,41 +536,28 @@
                 }
             });
 
-            //Select All Checkbox
-            $("#selectAll").on("click", function () {
-                $("#dataTable tr").each(function () {
-                    //var isChecked = $("#chkPassport").is(":checked");
-                    if ($(this).find("input").is(":checked")) {
-                        $(this).find("input").attr('checked', false);
-                    }
-                    else {
-                        $(this).find("input").attr('checked', true);
-                    }
-                });
-            });
-
-
-
             //project Dropdown
             $('#OrganizationDrop').change(function () {
                 $('.orgChartload').show();
                 document.getElementsByClassName("row").hidden = true;
                 document.getElementById("overlay").style.display = "block";
                 document.getElementById("load").hidden = false;
-                //document.getElementById("orgChartload").hidden = false;
-                //document.getElementById("orgChartload1").hidden = false;
+                
                 $('#orgChartload').show();
                 $('#orgChartload1').show();
-                //$('.row').hide();
                 $('#orgbuild').text("");
+                $('#sprintDrop').text("Select Sprint");
+                $('#daysDrop').find('option:first').attr('selected', 'selected');
+                $('#daysDrop').val(0);
+                $('#daysDrop option:eq(0)').attr('selected', 'selected');
+                $('#daysDrop').get(0).selectedIndex = 0;
                 $('#orgrelease').text("");
                 $('#orgcriticalbug').text("");
                 $('#orgworkitem').text("");
                 $('#row1').hide();
                 $('#row2').hide();
-                $('#row4').show();
                 $('#row3').hide();
-               // $(".badge badge-danger badge-pill").text(" ");
+                $('#row4').hide();
                 $("#critWorkitem").text("");
                 $("#WorkitemDeadLine").text("");
                 $("#build1").text("");
@@ -841,8 +576,6 @@
                         data: { 'orgName': orgName },//, 'pat': pat },
                         //dataType: 'json',
                         success: function (data1) {
-                             //document.getElementById("overlay").style.display = "none";
-                             //document.getElementById("load").hidden = true;
                             $("#ddlProjectvalue").empty();
                             data = JSON.parse(data1);
                             var count = Object.keys(data).length;
@@ -850,15 +583,15 @@
                                 var optionhtml1 = '<option value="' +
                                     0 + '">' + "--Select Project--" + '</option>';
                                 $("#ddlProjectvalue").append(optionhtml1);
-                                $.each(data.value, function (i) {
+                                $.each(data, function (i) { //data.value
                                     var optionhtml = '<option value="' +
-                                        data.value[i].id + '">' + data.value[i].name + '</option>';
+                                       // data.value[i].id + '">' + data.value[i].name + '</option>';
+                                         data[i].id + '">' + data[i].name + '</option>';
                                     $("#ddlProjectvalue").append(optionhtml);
 
                                 });
-                                 OrganizationChart();
-                                    //document.getElementById("overlay").style.display = "none";
-                                    //document.getElementById("load").hidden = true;
+                                document.getElementById("load").hidden = true;
+                                document.getElementById("overlay").style.display = "none";
                             };
                         },
 
@@ -871,42 +604,61 @@
                     });
             })
         });
-        @*function iteration()
-        {
-            var org=$("#OrganizationDrop option:selected").text();
-            var projectvalue = $("#ddlProjectvalue option:selected").text();
-            $.ajax({
-                        url: '@Url.Action("IterationsList","Home")',
-                        type: 'Get',
-                        data: { 'ORG':org ,'project':projectvalue },//, 'pat': pat },
-                        //dataType: 'json',
-                success: function (data1) {
-                    var iterationStore = [];
-                    data = json.parse(data1);
-                    iterationStore=data;
 
-                },
-                Error: function () {
+    function iteration() {
+        $('#sprintDrop').empty();
+        var org = $("#OrganizationDrop option:selected").text();
+        var projectvalue = $("#ddlProjectvalue option:selected").text();
 
-                }
+        $.ajax({
+            url: '@Url.Action("iterationMethod","Home")',// IterationsList
+            type: 'Get',
+            data: { 'ORG': org, 'project': projectvalue },//, 'pat': pat },
+            dataType: 'json',
+            success: function (data) {
+                iterationStore = [];
+                //data = json.parse(data1);
+                iterationStore = data;
+                console.log("Iterations");
+                console.log(iterationStore);
+                var optionhtml1 = '<option value="' +
+                                    0 + '">' + "--Select Sprint--" + '</option>';
+                                $("#sprintDrop").append(optionhtml1);
+                $.each(data, function (i) {
+                    console.log(data[i].value);
+                    $.each(data[i].value, function (j) {
+                        console.log(data[i].value[j]);
+                        var optionhtml = '<option value="' +
+                                        data[i].value[j].id + '">' + data[i].value[j].path + '</option>';
+                                    $("#sprintDrop").append(optionhtml);
+                    })
 
-        }*@
+                })
+            },
+            Error: function () {
+
+            }
+
+        })
+    }
 
         $('#ddlProjectvalue').change(function () {
-          //  document.getElementsByClassName("orgChartload").hidden = true;
-              //document.getElementsById("orgChartload").hidden = true;
-              //document.getElementsById("orgChartload1").hidden = true;
+          
             document.getElementById("overlay").style.display = "block";
             document.getElementById("load").hidden = false;
+            $('#sprintDrop').text("Select Sprint");
+                $('#daysDrop').find('option:first').attr('selected', 'selected');
+                $('#daysDrop').val(0);
+                $('#daysDrop option:eq(0)').attr('selected', 'selected');
+                $('#daysDrop').get(0).selectedIndex = 0;
+
             $('.orgChartload').hide();
             $('#orgChartload').hide();
             $('#orgChartload1').hide();
-            //$('.row').show();
             $('#row1').show();
             $('#row2').show();
             $('#row3').show();
             $('#row4').hide();
-             // document.getElementsByClassName("row").hidden = false;
             var projectvalue = $("#ddlProjectvalue option:selected").val();
             if (projectvalue == "0") {
                  $("#critWorkitem").text("");
@@ -917,22 +669,18 @@
                 $('#bugid').css("background-color", "white");
                 return;
             }
-            //document.getElementById("overlay").style.display = "block";
-            //document.getElementById("load").hidden = false;
-
-
-
+            
                 $("#critWorkitem").text("");
                 $("#WorkitemDeadLine").text("");
                 $("#build1").text("");
             $("#release1").text("");
             $("#critWorkitem").css("background-color", "red");
                 $('#bugid').css("background-color", "white");
-                //document.getElementById("overlay").style.display = "block";
-                //document.getElementById("ProjCounts").hidden = false;
             var projectName = $("#ddlProjectvalue option:selected").text();
-
-                //iteration();
+              $('#sprintDrop').empty();
+            iteration();
+             document.getElementById("overlay").style.display = "block";
+             document.getElementById("load").hidden = false;
                 if (projectName != null || projectName != "")
                     $.ajax({
                         url: '@Url.Action("Build","Home")',
@@ -940,13 +688,11 @@
                         data: { 'projectName': projectName },//, 'pat': pat },
                         //dataType: 'json',
                         success: function (data1) {
-
-                           //document.getElementById("overlay").style.display = "none";
-                           //document.getElementById("load").hidden = true;
                             data = JSON.parse(data1);
+                            TotalBuildList = data;
                             BuildStore = data;
                             var count = Object.keys(data).length;
-                            $("#build1").text(count);
+
                             var builddata1=0
 
                             $.each(data.value, function (m) {
@@ -954,42 +700,39 @@
                             })
 
                             console.log('build ' + buildSession +'build data'+builddata1)
-                           // var buildSession = '<%= Session["BuildCount"] %>';
-                                //if ('<%=(Session["BuildCount"] == null)%>')
-                                //{
-                            @*'@Session["BuildCount"]';*@
-                                //}
-
-                            var FailedBuildListStore = [];
-
-                            failedcountBuild=0;
+                           
+                            var diffDays;
+                            failedcountBuild = 0;
+                            FailedBuildListStore = [];
                             console.log(data);
                                 $.each(data.value, function (i) {
-                                    //var optionhtml = '<option value="' +
-                                    //    data.value[i].id + '">' + data.value[i].name + '</option>';
+                                    console.log(data.value[i].finishTime);
+                                    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                                    var firstDate = new Date(data.value[i].finishTime);
+                                    var today = new Date();
+                                    var date1234 = new Date(data.value[i].finishTime);
+                                    console.log("Finish Date:   "+date1234);
+                                    diffDays = Math.round(Math.abs((firstDate - today) / oneDay));
                                     if (data.value[i].result == "failed")
                                          {
-                                       // BuildList.Add(data);
-                                      FailedBuildListStore.push(data[i]);
+                                        if (diffDays <= 21) {
+                                            FailedBuildListStore.push(data.value[i]);
                                         failedcountBuild++;
-                                        console.log(i);
+
+                                        }
                                           }
                                 });
                             $("#buildspan").text(failedcountBuild);
                             $("#buildicon").text(failedcountBuild);
+                             $("#build1").text(failedcountBuild);
                             jsonResult = failedcountBuild;// count;
                             jsonResult2 = builddata1;
-                            google.charts.load('current', {'packages':['corechart']});
-                            google.charts.setOnLoadCallback(drawChart);
-                            //dailySalesChart
-                           // document.getElementById("overlay").style.display = "none";
-                           //document.getElementById("load").hidden = true;
+                            console.log("FailedBuildListStore displaying the array");
+                            console.log(FailedBuildListStore);
+                            drawChart();
                         },
 
                         error: function (request, error) {
-               //              document.getElementById("overlay").style.display = "none";
-               //document.getElementById("load").hidden = true;
-                       //     alert('Something went wrong');
                         }
                     });
 
@@ -999,15 +742,15 @@
 
 
                 if (orgName != null || orgName!="" || projectName != null || projectName != "")
-               // document.getElementById("overlay").style.display = "block";
-               //document.getElementById("load").hidden = false;
+                document.getElementById("overlay").style.display = "block";
+               document.getElementById("load").hidden = false;
                     $.ajax({
                         url: '@Url.Action("WorkitemDeadline","Home")',
                         type: 'Get',
                         data: { 'projectName':projectName},//, 'pat': pat },
                        // dataType: 'json',
                         success: function (data1) {
-
+                            WorkitemStore = [];
                             if (data1 == "null") {
                                 var count = 0;
                                 $('#WorkitemDeadLine').text(count);
@@ -1015,19 +758,33 @@
                             }
                             else {
                                 data = JSON.parse(data1);
+                               // WorkitemStore = data;
 
-                                WorkitemStore = data;
-                                //     //alert('workitem succeded Deadline')
+                                TotalslakeList =data;
+                                 var countwork = 0;
+                                $.each(data, function (ib) {
+
+                                    console.log("slake " + data[ib].fields["System.CreatedDate"]);
+                                    console.log("slake " + data[ib].fields["System.Title"]);
+                                    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                                    var firstDate = new Date(data[ib].fields["System.CreatedDate"]);
+                                    var today = new Date();
+
+                                    diffDays = Math.round(Math.abs((firstDate - today) / oneDay));
+
+                                    if (diffDays <= 21) {
+                                        countwork = countwork + 1;
+                                        WorkitemStore.push(data[ib])
+                                        
+                                        }
+                                    })
+                             
                                 var count = Object.keys(data).length;
-                                $('#WorkitemDeadLine').text(count);
-                                $("#workitemicon").text(count);
-                                //data = JSON.parse(data1);
+                                $('#WorkitemDeadLine').text(countwork);
+                                $("#workitemicon").text(countwork);
+                             
                                 var count = Object.keys(data).length;
                             }
-                            //jsonResultworkdeadline
-                           // if ('<%=((Session["WorkItemstotal"] == null) ? 1 : 0))%>')
-                                //  if ('<%=(Session["WorkItemstotal"] == null)%>')
-                            //{
                             var workitemcounttotal = 0;
                             if (data != null || data != undefined)
                             {
@@ -1042,33 +799,22 @@
                                 console.log('session')
                                 workitemcounttotal = '@Session["WorkItemstotal"]';
                             }
-
-
                             workitemdeadline1 = workitemcounttotal;//'@Session["WorkItemstotal"]';
-                               // }
-
-                            //jsonResultDeadline = count;
                             var storecount = 0;
                             $.each(data, function (m) {
                                 storecount++;
                             })
                             jsonResult = count;
-                            jsonResult4 = workitemcounttotal;
-                            $('#workitemspan').text(jsonResult);
-                            google.charts.load('current', {'packages':['corechart']});
-                            google.charts.setOnLoadCallback(drawChartDeadLine);
-                            //document.getElementById("overlay").style.display = "none";
-                            // document.getElementById("load").hidden = true;
+                            
+                            $('#workitemspan').text(countwork);
+                            drawChartDeadLine();
                         },
 
                         error: function (request, error) {
-                             //document.getElementById("overlay").style.display = "none";
-                             //document.getElementById("load").hidden = true;
-                            //alert('Something went wrong');
                         }
                     });
-             //document.getElementById("overlay").style.display = "block";
-             //  document.getElementById("load").hidden = false;
+             document.getElementById("overlay").style.display = "block";
+               document.getElementById("load").hidden = false;
                 // Critical Work
                 if (orgName != null || orgName!="" || projectName != null || projectName != "")
                     $.ajax({
@@ -1078,51 +824,47 @@
                       //  dataType: 'json',
                         success: function (data1) {
 
-                            var count;
+                            var countCrit=0;
                             if (data1 == "null") {
                                 count = 0;
                             }
                             else {
                                 data = JSON.parse(data1);
-                                 CriticalStore =data;
+                                TotalBugList = data;
+                                BugList = [];
+                                // CriticalStore = data;
+                                AllCriticalBugs = data;
+                                console.log('critical bug starts');
+                                $.each(data, function (ia) {
+                                    console.log("critical Bug " + data[ia].fields["System.CreatedDate"]);
+                                    console.log("critical Bug " + data[ia].fields["System.Title"]);
+                                    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                                    var firstDate = new Date(data[ia].fields["System.CreatedDate"]);
+                                    var today = new Date();
+
+                                    diffDays = Math.round(Math.abs((firstDate - today) / oneDay));
+
+                                    if (diffDays <= 21) {
+                                        BugList.push(data[ia]);
+                                        countCrit = countCrit + 1;
+                                        }
+                                    })
                                 //      alert('Critical Work Item')
                                 var count = Object.keys(data).length;
-                                if (count == 3) {
-                                    $('#bugid').css("background-color", "yellow");
-                                }
-                                if (count >= 5) {
-                                    $('#bugid').css("background-color", "red");
-                                    $('#critWorkitem').css("background-color", "blue");
-                                    alert('Project Health is at risk, ' + count + ' critical risk found');
-                                }
-                                if (count < 3) {
-                                    $('#critWorkitem').css("background-color", "red");
-                                    $('#bugid').css("background-color", "white");
-                                }
-                            }
-                            $('#critWorkitem').text(count);
-                            $('#criticalbugspan').text(count);
-                            $("#criticalbugicon").text(count);
-                            //data = JSON.parse(data1);
-                            //var count = Object.keys(data).length;
-                             //if ('<%=(Session["WorkItemscount"] == null)%>')
-                             //   {
-                                    workitemSession = '@Session["WorkItemscount"]';
-                                //}
 
-                            jsonResultbug = count;
-                            //google.charts.load('current', {'packages':['corechart']});
-                            //google.charts.setOnLoadCallback(drawChartbug);
+                            }
+                            $('#critWorkitem').text(countCrit);
+                            $('#criticalbugspan').text(countCrit);
+                            $("#criticalbugicon").text(countCrit);
+                                    workitemSession = '@Session["WorkItemscount"]';
+
+                            jsonResultbug = countCrit;
                             google.charts.load('current', {'packages':['gauge']});
                             google.charts.setOnLoadCallback(drawChartbug);
-                             //document.getElementById("overlay").style.display = "none";
-                             //document.getElementById("load").hidden = true;
+                             
                         },
 
                         error: function (request, error) {
-                              //document.getElementById("overlay").style.display = "none";
-                             //document.getElementById("load").hidden = true;
-                         //   alert('Something went wrong');
                         }
                     });
 
@@ -1138,27 +880,35 @@
                         data: {'projectName':projectName12},//, 'pat': pat },
                         //dataType: 'json',
                         success: function (data1) {
-
+                            FailedReleaseListStore = [];
                             data = JSON.parse(data1);
-                            ReleaseStore = data;
+
+                            TotalReleaseList = data;
+
+                            //ReleaseStore = data;
                             var count = Object.keys(data).length;
                             console.log('result count' +count)
-
                               ReleaseCountTotal = 0;
-                            //if ('<%=(Session["ReleaseCount"] != null)%>')
-                            //    {
-                                //    ReleaseCount = @*'@Session["ReleaseCount"]';*@
-                               // }
-                            //
                             $.each(data.value, function (m) {
+
                                 ReleaseCountTotal++;
                             });
+                            $.each(data.value, function (i) {
+                            })
 
                             var failedReleases = [];
                             failedcountrelease = 0;
                     console.log(data);
                     $.each(data.value, function (i) {
                         // release.environments[0].deploySteps[0].status
+                        var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                        var firstDate = new Date(data.value[i].createdOn);
+                        var date12345 = new Date(data.value[i].createdOn);
+                        console.log("createdOn release:   "+date12345);
+                        console.log("modified on"+firstDate);
+                                var today = new Date();
+                                var diff1 = parseInt(firstDate - today);
+                                var diffDays1 = Math.round(Math.abs((today - firstDate) / oneDay));
                         var statusData = ""; /*data.value[i]["environments"]*/
                         if (data.value[i]["environments"] != null || data.value[i]["environments"] != undefined)
                         {
@@ -1169,8 +919,14 @@
                                             if (data.value[i].environments[0].deploySteps[0].releaseDeployPhases.length > 0) {
                                                 if (data.value[i].environments[0].deploySteps[0].releaseDeployPhases[0].status != null || data.value[i].environments[0].deploySteps[0].releaseDeployPhases[0].status != undefined) {
                                                     statusData = data.value[i].environments[0].deploySteps[0].releaseDeployPhases[0].status;
-                                                    failedReleases.push(data.value[i]);
-                                                    failedcountrelease++;
+                                                    if (statusData == "failed") {
+                                                    // failedReleases.push(data.value[i]);
+                                                   // failedcountrelease++;
+                                                        if (diffDays1 <= 21) {
+                                                            FailedReleaseListStore.push(data.value[i]);
+                                                            failedcountrelease++;
+                                                        }
+                                        }
                                                 }
 
                                             }
@@ -1179,7 +935,7 @@
                                 }
                             }
                         }
-                        console.log(statusData);
+                        console.log("release",statusData);
                         console.log("failed releases"+failedcountrelease);
                         })
 
@@ -1190,9 +946,7 @@
                             $('#releaseicon').text(failedcountrelease);
                         resultId = count;
                              //jsonResultrelease = count;
-                            google.charts.load('current', {'packages':['corechart']});
-                            google.charts.setOnLoadCallback(drawChartRelease);
-
+                            drawChartRelease();
                             document.getElementById("overlay").style.display = "none";
                             document.getElementById("load").hidden = true;
                         },
@@ -1203,227 +957,77 @@
                        //     alert('Something went wrong');
                         }
                     });
-             //document.getElementById("overlay").style.display = "none";
-             //document.getElementById("load").hidden = true;
         })
-        $('#criticalclick').click(function (){
-            var orgName = $("#OrganizationDrop option:selected").text();
-              var projName = $("#ddlProjectvalue option:selected").text();
-                  tabledata = "<table id='dataTable'><thead><tr><th>ID</th><th>Title</th><th>Assigned To</th></thead><tbody>";
-                            console.log(data);
-                            $.each(CriticalStore, function (i) {
-                                tabledata += "<tr class='tableData details-control'><td>" + CriticalStore[i].id + "</td><td><a- href='https://dev.azure.com/"+orgName+"/"+projName+"/_workitems/edit/"+CriticalStore[i].id+"'>" + CriticalStore[i]["fields"]["System.Title"] + "</a></td><td>" + (CriticalStore[i]["fields"]["AssignedTo"] != null ? CriticalStore[i]["fields"]["AssignedTo"]["displayName"] :"") + "</td></tr > ";
-                            });
-
-                  tabledata += "</tbody></table>";
-                  console.log(tabledata);
-                  $("#dataTable1").append(tabledata);
-                    table = $('#dataTable').DataTable();
-        })
-
             //Release
-        $('#SelectAllProject').click(function () {
-            var orgName = $("#OrganizationDrop option:selected").val();
-                var projectName = $("#ddlProjectvalue option:selected").text();
-                 var table = $('#dataTable').DataTable();
-
-            if (table.data().any()) {
-                return;
-            }
-            else {
-
-                //$('#dataTable').DataTable().destroy();
-                //        $('#dataTable').remove();
-                if (orgName == "0") {
-                    alert('Please Select the organization')
-                }
-                if (orgName != "0") {
-                    if (projectName != null || projectName != "")
-                        document.getElementById("overlay").style.display = "block";
-                    document.getElementById("load").hidden = false;
-
-                    $.ajax({
-                        url: '@Url.Action("AllProjectList","Home")',
-                        type: 'Get',
-                        data: {},//, 'pat': pat },
-                        //dataType: 'json',
-                        success: function (data1) {
-                            data = JSON.parse(data1);
-                            DataStore = data;
-                            var count = Object.keys(data).length;
-                            //<tr style="background-color:#ffb3b3" class="details-controlRun"><td style="padding-left:42%" class="text-dark">No Testcases found</td></tr>';
-                            if (count >= 1) {
-                                //
-                                tabledata = "<table id='dataTable'><thead><tr><th>Project ID</th><th>Project Name</th><th></th></thead><tbody>";
-
-                                $.each(data, function (i) {
-                                    tabledata += "<tr class='tableData details-control'><td>" + data[i].ProjectId + "</td><td>" + data[i].ProjectName + "</td><td><img src='../Content/Icons/details_open.png'height='20px' width='20px' /></td></tr>";
-
-                                });
-                                tabledata += "</tbody></table>";
-                                console.log(tabledata);
-                                $("#DataTableDiv").append(tabledata);
-                                table = $('#dataTable').DataTable();
-                                $('#dataTable tbody').on('click', 'tr.details-control', function () {
-                                    var tr = $(this).closest('tr');
-                                    var row = table.row(tr);
-                                    if (row.child.isShown()) {
-                                        // This row is already open - close it
-                                        $('div.slider', row.child()).slideUp(function () {
-                                            row.child.hide();
-                                            tr.removeClass('shown');
-                                        });
-                                    }
-                                    else {
-
-                                        var a = $(".shown");
-                                        console.log(a);
-                                        for (var n = 0; n < a.length; n++) {
-                                            console.log(a[n]);
-                                            var hiderow = table.row(a[n]);
-                                            $('div.slider', hiderow.child()).slideUp(function () {
-                                                hiderow.child.hide();
-                                            });
-                                            a[n].classList.remove("shown");
-                                            //a[n].nextSibling.innerHTML = '';                              ';hh
-                                        }
-
-                                        row.child(format(row.data()) + '</table></div>').show();
-
-                                        tr.addClass('shown');
-
-                                        $('div.slider', row.child()).slideDown('1000');
-                                    }
-                                    s = '<div class="slider"><table style="width:100" class="dataTable table bg-dark table-dark">';
-                                    j = 0;
-
-                                });
-
-
-                                console.log($('#dataTable'));
-                                //$('#dataTable').DataTable();
-
-                            }
-                            document.getElementById("overlay").style.display = "none";
-                            document.getElementById("load").hidden = true;
-                        },
-
-                        error: function (request, error) {
-                            document.getElementById("overlay").style.display = "none";
-                            document.getElementById("load").hidden = true;
-
-                            alert('Something went wrong');
-                        }
-
-                    });
-                }
-            }
-            })
-        var s = '<div class="slider"><table style="width:100" class="dataTable table bg-dark table-dark" >';
-         function format(d) {
-                //document.getElementById("overlay").style.display = "block";
-                //document.getElementById("load").hidden = false;
-                // `d` is the original data object for the row
-                var testPlan=$('#TestPlanDrop').val();
-                let projectName = d[1];
-                         s += '<tr style="background-color:black" class="details-controlRun"><td style="padding-left:42%" class="text-dark"><td>Failed Build Counts</td><td>Failed Release Counts</td><td>Critical Bugs Count</td><td>WorkItems Exceeds Finish date</td></tr>'
-                // s += '<tr style="background-color:black" class="details-controlRun"><td style="padding-left:42%" class="text-dark"><td>TestCase Id</td><td>TestCase Name</td></tr>'
-                //document.getElementById("overlay").style.display = "block";
-                //document.getElementById("load").hidden = false;
-
-                $.each(DataStore, function (i)
-                {
-                    if (DataStore[i].ProjectName == projectName) {
-                        if (DataStore[i].CriticalBugCount == 3) {
-                            s += '<tr style="background-color:yellow;color:black" class="details-controlRun"><td style="padding-left:42%" class="text-dark"><td>' + DataStore[i].BuildCount + '</td><td>' + DataStore[i].ReleaseCount + '</td><td>' + DataStore[i].CriticalBugCount + '</td><td>' + DataStore[i].WorkItemDeadLineCount + '</td></tr>'
-                            //s += '<tr style="background-color:#ffb3b3" class="details-controlRun"><td style="padding-left:42%" class="text-dark"><td>' + data.value[i].workItem.id + '</td><td>' + data.value[i].workItem.name + '</td></tr>'
-                        }
-                        if (DataStore[i].CriticalBugCount >= 5) {
-                            s += '<tr style="background-color:red;color:black" class="details-controlRun"><td style="padding-left:42%" class="text-dark"><td>' + DataStore[i].BuildCount + '</td><td>' + DataStore[i].ReleaseCount + '</td><td>' + DataStore[i].CriticalBugCount + '</td><td>' + DataStore[i].WorkItemDeadLineCount + '</td></tr>'
-                            alert('Project Health is at Risk: Found '+DataStore[i].CriticalBugCount+' critical bugs on the project');
-                        }
-                        if (DataStore[i].CriticalBugCount < 3) {
-                            s += '<tr style="background-color:lightgrey;color:black" class="details-controlRun"><td style="padding-left:42%" class="text-dark"><td>' + DataStore[i].BuildCount + '</td><td>' + DataStore[i].ReleaseCount + '</td><td>' + DataStore[i].CriticalBugCount + '</td><td>' + DataStore[i].WorkItemDeadLineCount + '</tr>'
-                        }
-                    }
-                    //document.getElementById("overlay").style.display = "none";
-                    //document.getElementById("load").hidden = true;
-                })
-                return s;
-        }
-
         //});
-        function drawChart() {
-            var totalBuilds = jsonResult2;//buildSession;
-            var total = totalBuilds - failedcountBuild;//jsonResult;
-
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-            ['Failed Build', failedcountBuild],//jsonResult],
-            ['other Build', total]
-
-        ]);
-
-        var options = {
-          title: 'Build Report'
-        };
-            buildSession = 0;
-            var chart = new google.visualization.PieChart(document.getElementById('dailySalesChart'));
-
-            //
-            function selectHandler() {
-                        $('#dataTable').DataTable().destroy();
-                        $('#dataTable').remove();
-
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-              var topping = data.getValue(selectedItem.row, 0);
-              modal.style.display = "block";
-              //alert('The user selected ' + topping);
-
-                  tabledata = "<table id='dataTable'><thead><tr><th>Build ID</th><th>Build Number</th></thead><tbody>";
-              var orgName = $("#OrganizationDrop option:selected").text();
-              var projName = $("#ddlProjectvalue option:selected").text();
-              $.each(BuildStore.value, function (i) {
-                  tabledata += "<tr class='tableData details-control'><td><a href='https://dev.azure.com/" + orgName + "/" + projName + "/_build/results?buildId=" + BuildStore.value[i].id + "&view=results'>" + BuildStore.value[i].id + "</a></td><td>" + BuildStore.value[i].buildNumber + "</td></tr>";
-
-                  });
-                  tabledata += "</tbody></table>";
-                  console.log(tabledata);
-                  $("#dataTable1").append(tabledata);
-                    //$("#dataTable1").html(tabledata);
-                    table = $('#dataTable').DataTable();
-
-
-          }
+    var lineChart;
+    function drawChart() {
+        $('#dailySalesChart').empty();
+        var i;
+        var datestore1 = [];
+        for (i = 0; i < 21; i++) {
+            var date1 = new Date();
+            date1.setDate(date1.getDate()+1 - 21);
+            date1.setDate(date1.getDate() + i);
+           // var Faildate = new Date(FailedBuildListStore[k].lastChangedDate);
+                                    var ddd = date1.getDate();
+            var mmm = date1.getMonth(); //January is 0!
+            mmm = mmm + 1;
+                                    var yyyyy = date1.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+            datestore1.push(Faildate);//(date.getDate());
+        
         }
+        var LineDataStore1 = [];
+        $.each(datestore1, function (yi) {
+            var Datecountwork1 = 0;
+            $.each(FailedBuildListStore, function (zi) {
+                console.log(zi);
+                 var Faildate = new Date(FailedBuildListStore[zi].finishTime);
+                var ddd = Faildate.getDate();
+                var mmm = Faildate.getMonth(); //January is 0!
+                mmm = mmm + 1;
+                                    var yyyyy = Faildate.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+                if (Faildate == datestore1[yi]) {
+                    Datecountwork1 = Datecountwork1 + 1;
 
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        chart.draw(data, options);
+                 }
+            });
+            LineDataStore1.push(Datecountwork1);
+         });
+        var lastchangedArray = [];
+        
+    var canvas = document.getElementById("dailySalesChart");
+    var ctx = canvas.getContext("2d");
+
+            options = {
+                 responsive: true,
+                maintainAspectRatio: false
+        };
+        if (lineChart != undefined) {
+            lineChart.destroy();
+        }
+             lineChart = new Chart(ctx, {
+                 type: 'line',
+                data: {
+                    labels: datestore1,
+                    datasets: [{
+                        label: 'Failed Builds',
+                        //  backgroundColor: 'rgb(153,50,204)',
+                         borderColor: 'rgb(255, 99, 132)',
+                        data: LineDataStore1
+                    }]
+
+                }
+            });
+             options: {}
+
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("load").hidden = true;
+
     }
-    //function drawChartrelease() {
-    //        var totalReleases = ReleaseCount;
-    //        var total = totalReleases - jsonResult;
-
-    //    var data = google.visualization.arrayToDataTable([
-    //      ['Task', 'Hours per Day'],
-    //        ['Failed Build', jsonResult],
-    //        ['other Build', total]
-
-    //    ]);
-
-    //    var options = {
-    //      title: 'Release Report'
-    //    };
-
-    //    var chart = new google.visualization.PieChart(document.getElementById('dailySalesChart'));
-
-    //    chart.draw(data, options);
-    //}
-    //            //
-      // google.charts.load('current', {'packages':['gauge']});
-      //google.charts.setOnLoadCallback(drawChartbug);
-
+    
     function drawChartbug() {
             var totalworkitems = workitemSession;
         var total = totalworkitems - jsonResultbug;
@@ -1453,38 +1057,20 @@
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
 
-          ['Critical Bugs',bug ]
+          ['',bug ]
         ]);
 
         var options = {
           width: 450, height: 200,
           redFrom: 90, redTo: 100,
-          yellowFrom:75, yellowTo: 90,
+          yellowFrom: 75, yellowTo: 90,
+          //greenFrom: 10, greenTo = 74,
           minorTicks: 5
         };
 
         var chart = new google.visualization.Gauge(document.getElementById('websiteViewsChart'));
 
-        //chart.draw(data, options);
-
-
-
-        //end graud chart
-        //var data = google.visualization.arrayToDataTable([
-        //  ['Task', 'Hours per Day'],
-        //    ['Critical Bugs', jsonResultbug],
-        //    ['Other Work items', total]
-
-        //]);
-
-        //var options = {
-        //  title: 'Critical Bugs'
-        //};
-
-        //var chart = new google.visualization.PieChart(document.getElementById('websiteViewsChart'));
-
-        // //
-                    function selectHandler() {
+                       function selectHandler() {
           var selectedItem = chart.getSelection()[0];
                         if (selectedItem) {
                 $('#dataTable').DataTable().destroy();
@@ -1513,446 +1099,164 @@
 
         //    //
         chart.draw(data, options);
+
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("load").hidden = true;
     }
-
+    var lineChartrel;
     function drawChartRelease() {
-
-        var totalRelease = jsonResult1;//resultId;
-        var totalrel = totalRelease - jsonResult;//jsonRelease;
-        console.log('rel chart' + jsonResult1 + ' count & failed' + jsonResult +'total:'+totalrel)
-
-            var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Failed Releases', jsonResult],//jsonRelease],
-                ['Other Releases', totalrel]
-
-            ]);
-        jsonResult1 = 0;
-            var options = {
-                title: 'Failed Releases',
-                  pieHole: 0.3,
-            };
-            ReleaseCountTotal = 0;
-            var chart = new google.visualization.PieChart(document.getElementById('Releasechart'));
-
-        //
-        function selectHandler() {
-
-          var selectedItem = chart.getSelection()[0];
-                        if (selectedItem) {
-                $('#dataTable').DataTable().destroy();
-                        $('#dataTable').remove();
-              var topping = data.getValue(selectedItem.row, 0);
-              modal.style.display = "block";
-              alert('The user selected ' + topping);
-              var orgName = $("#OrganizationDrop option:selected").text();
-              var projName = $("#ddlProjectvalue option:selected").text();
-     tabledata = "<table id='dataTable'><thead><tr><th>Release ID</th><th>Release Name</th><th>Status</th></thead><tbody>";
-
-                            $.each(ReleaseStore.value, function (i) {
-                                tabledata += "<tr class='tableData details-control'><td>" + ReleaseStore.value[i].id + "</td><td><a href='https://dev.azure.com/"+orgName+"/"+projName+"/_releaseProgress?_a=release-pipeline-progress&releaseId="+ReleaseStore.value[i].id+"'>" + ReleaseStore.value[i].name + "</td><td>" + ReleaseStore.value[i].status + "</td></tr > ";
-
-                  });
-                  tabledata += "</tbody></table>";
-                  console.log(tabledata);
-                  $("#dataTable1").append(tabledata);
-                    table = $('#dataTable').DataTable();
-
-
-          }
+            var date = new Date();
+        date.setDate(date.getDate() - 21);
+        console.log(date);
+       // alert(date);
+        var i;
+        var datestore1 = [];
+        for (i = 0; i < 21; i++) {
+            var date1 = new Date();
+            date1.setDate(date1.getDate()+1 - 21);
+            date1.setDate(date1.getDate() + i);
+           // var Faildate = new Date(FailedBuildListStore[k].lastChangedDate);
+                                    var ddd = date1.getDate();
+            var mmm = date1.getMonth(); //January is 0!
+            mmm = mmm + 1;
+                                    var yyyyy = date1.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+            datestore1.push(Faildate);//(date.getDate());
+            //text += cars[i] + "<br>";
         }
+        var LineDataStore1 = [];
+        $.each(datestore1, function (yi) {
+            console.log("Failed Build Check");
+            console.log(yi);
+            console.log(FailedBuildListStore);
+            var Datecountrel = 0;
+            $.each(FailedReleaseListStore, function (zi) {
+                console.log(zi);
+                 var Faildate = new Date(FailedReleaseListStore[zi].createdOn);
+                                    var ddd = Faildate.getDate();
+                var mmm = Faildate.getMonth(); //January is 0!
+                mmm = mmm + 1;
+                                    var yyyyy = Faildate.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+                if (Faildate == datestore1[yi]) {
+                    Datecountrel = Datecountrel + 1;
+                 }
+            });
+            LineDataStore1.push(Datecountrel);
+         });
+        var lastchangedArray = [];
+        $.each(FailedReleaseListStore, function (ki) {
+            var Faildate = new Date(FailedReleaseListStore[ki].createdOn);
+                                    var ddd = Faildate.getDate();
+            var mmm = Faildate.getMonth(); //January is 0!
+            mmm = mmm + 1;
+                                    var yyyyy = Faildate.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+             lastchangedArray.push(Faildate);
+                });
+        console.log("last changed Array display");
+        console.log(lastchangedArray);
 
-        google.visualization.events.addListener(chart, 'select', selectHandler);
+    var canvas = document.getElementById("Releasechart");
+    var ctx = canvas.getContext("2d");
 
-            //
-
-
-            chart.draw(data, options);
-        //}
-                }
-
-
-
-                function drawChartDeadLine() {
-
-                    var totalworkitem1 = jsonResult4;
-                    var totaldata = totalworkitem1 - jsonResult;//jsonResultDeadline;
-                    if (totaldata < 0) {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Task', 'Hours per Day'],
-                            ['Expired Workitem', 0],//jsonResultworkdeadline],
-                            ['Other WorkItems', 0]
-
-                        ]);
-
-                    }
-                    else {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Task', 'Hours per Day'],
-                            ['Expired Workitem', jsonResult],//jsonResultworkdeadline],
-                            ['Other WorkItems', totaldata]
-
-                        ]);
-                    }
-
-                        var options = {
-                            title: 'WorkItems'
-                        };
-
-                        var chart = new google.visualization.PieChart(document.getElementById('workitemchart'));
-
-                         //
-                        function selectHandler() {
-
-          var selectedItem = chart.getSelection()[0];
-                        if (selectedItem) {
-                $('#dataTable').DataTable().destroy();
-                        $('#dataTable').remove();
-              var topping = data.getValue(selectedItem.row, 0);
-              modal.style.display = "block";
-              //alert('The user selected ' + topping);
-              var orgName = $("#OrganizationDrop option:selected").text();
-              var projName = $("#ddlProjectvalue option:selected").text();
-                  tabledata = "<table id='dataTable'><thead><tr><th>WorkItem ID</th><th>WorkItem Name</th><th>Assigned To</th></thead><tbody>";
-
-              $.each(WorkitemStore, function (i) {
-                  tabledata += "<tr class='tableData details-control'><td>" + WorkitemStore[i].id + "</td><td><a href='https://dev.azure.com/"+orgName+"/"+projName+"/_workitems/edit/"+WorkitemStore[i].id+"'>" + WorkitemStore[i]["fields"]["System.Title"] + "</a></td><td>" + (WorkitemStore[i]["fields"]["AssignedTo"] != null ? WorkitemStore[i]["fields"]["AssignedTo"]["displayName"] : "") + "</td></tr > ";
-                   //tabledata += "<tr class='tableData details-control'><td>" + CriticalStore[i].id + "</td><td>" + CriticalStore[i]["fields"]["System.Title"] + "</a></td><td>+" + CriticalStore[i]["fields"]["System.AssignedTo"] + "</td></tr > ";
-
-                  });
-                  tabledata += "</tbody></table>";
-                  console.log(tabledata);
-                  $("#dataTable1").append(tabledata);
-                    table = $('#dataTable').DataTable();
-
-
-          }
+            options = {
+                 responsive: true,
+                maintainAspectRatio: false
+        };
+         if (lineChartrel != undefined) {
+            lineChartrel.destroy();
         }
-
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-
-            //
-
-                        chart.draw(data, options);
-                    }
-
-        $('#clickHere').click(function () {
-            orgChartLevel22();
-        })
-
-
-            // var ReleaseStore = [];
-            //var CriticalStore = [];
-            //var WorkitemStore = [];
-        var dataLineChartStore = [];
-        var dataLineChartStoreWorkItem=[];
-
-        function OrganizationChart()
-        {
-            //document.getElementById("overlay").style.display = "block";
-            //document.getElementById("load").hidden = false;
-            var orgName = $("#OrganizationDrop option:selected").text();
-
-            //iteration();
-            if (orgName != null || orgName != "")
-                $.ajax({
-                    url: '@Url.Action("AllDataChart","Home")',  // AllProjectList AllDataChart
-                    type: 'Get',
-                    data: { 'orgName': orgName },//, 'pat': pat },
-                    //dataType: 'json',
-                    success: function (data1) {
-
-                        //document.getElementById("overlay").style.display = "none";
-                        //document.getElementById("load").hidden = true;
-                        data = JSON.parse(data1);
-                        dataLineChartStore = [];
-                        dataLineChartStore = data;
-
-                        drawLineChart();
-                        drawLineChartrelease();
-
-                         google.charts.load('current', {'packages':['gauge']});
-                        //google.charts.setOnLoadCallback(drawLineChartcritBug);
-                        //OrgWorkItemExpired();
-                        //google.charts.load('current', {'packages':['bar']});
-                        //google.charts.setOnLoadCallback(drawLineChart);
-                      //  google.charts.setOnLoadCallback(drawLineChartrelease);
-
-                    }
-                })
-            //Critical Bugs and Work Item load
-
-              $.ajax({
-                    url: '@Url.Action("AllDataWorkitem","Home")',
-                    type: 'Get',
-                    data: {},//, 'pat': pat },
-                    //dataType: 'json',
-                    success: function (data1) {
-
-                        //document.getElementById("overlay").style.display = "none";
-                        //document.getElementById("load").hidden = true;
-                        data = JSON.parse(data1);
-
-                        dataLineChartStoreWorkItem = data;
-
-                        //google.charts.load('current', {'packages':['corechart']});
-                        google.charts.load('current', {'packages':['gauge']});
-                        google.charts.setOnLoadCallback(drawLineChartcritBug);
-                        OrgWorkItemExpired();
-                        document.getElementById("overlay").style.display = "none";
-                        document.getElementById("load").hidden = true;
-                        // google.charts.setOnLoadCallback(drawLineChartrelease);
-
-                    }
-                })
-        }
-
-           function drawLineChart()
-           {
-               //document.getElementById("overlay").style.display = "block";
-               //document.getElementById("load").hidden = false;
-                   console.log('adding to the DataStore')
-
-                   console.log(dataLineChartStore)
-
-                 var label = [];
-            var datastoreBuildCount = [];
-            $.each(dataLineChartStore,function (i) {
-                label.push(dataLineChartStore[i].ProjectName);
-            })
-               console.log(label);
-               var buildDisplay = 0;
-            $.each(dataLineChartStore,function (j) {
-                buildDisplay = buildDisplay + dataLineChartStore[j].BuildCount;
-                datastoreBuildCount.push(dataLineChartStore[j].BuildCount);
-            })
-               $('#orgbuild').text(buildDisplay);
-               console.log(buildDisplay);
-            console.log(datastoreBuildCount);
-    //dataLineChartStore.forEach(function(value, index, array){
-    //    data.addRow([
-    //      value.ProjectName,
-    //      value.ReleaseCount
-    //  ]);
-    //})
-
-            var ctx = document.getElementById('top_x_div').getContext('2d');
-               ctx.height = 100;
-               options = {
-                    responsive: true,
-                    maintainAspectRatio: false
-    //scales: {
-    //    xAxes: [{
-    //        gridLines: {
-    //            offsetGridLines: true
-    //        }
-    //    }]
-    //}
-};
-            var myBarChart = new Chart(ctx, {
-                type: 'bar',
-
+             lineChartrel = new Chart(ctx, {
+                 type: 'line',
                 data: {
-                    labels: label,
+                    labels: datestore1,
                     datasets: [{
-                        label: 'Builds',
-                        backgroundColor: 'rgb(0,250,154)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data:datastoreBuildCount
+                        label: 'Failed Releases',
+                        //  backgroundColor: 'rgb(153,50,204)',
+                         borderColor: 'rgb(255, 99, 132)',
+                        data: LineDataStore1
                     }]
+
                 }
             });
              options: {}
 
-               //document.getElementById("overlay").style.display = "none";
-               //document.getElementById("load").hidden = true;
-}
-        var chart;
-        function drawLineChartrelease() {
-    //document.getElementById("overlay").style.display = "block";
-    //document.getElementById("load").hidden = false;
-            //   var data = new google.visualization.arrayToDataTable([
-           // $.each(dataLineChartStore, function (i) {
-            //['', 'Total: '],
-                    // add each element manually
-                   //[dataLineChartStore[0]["ProjectName"], dataLineChartStore[0]["ReleaseCount"]],
-             //  });
-              // ]);
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("load").hidden = true;
 
-            console.log(dataLineChartStore)
-            // add each element via forEach loop
-            var label = [];
-            var releaseDisplay = 0;
-            var datastoreReleaseCount = [];
-            $.each(dataLineChartStore,function (i) {
-                label.push(dataLineChartStore[i].ProjectName);
-
-            })
-
-            $.each(dataLineChartStore,function (j) {
-                releaseDisplay = releaseDisplay + dataLineChartStore[j].ReleaseCount;
-                datastoreReleaseCount.push(dataLineChartStore[j].ReleaseCount);
-            })
-            $('#orgrelease').text(releaseDisplay);
-            console.log("Org release total count" + releaseDisplay)
-    //dataLineChartStore.forEach(function(value, index, array){
-    //    data.addRow([
-    //      value.ProjectName,
-    //      value.ReleaseCount
-    //  ]);
-    //})
-            var ctx = document.getElementById('top_x_div_ReleaseBar').getContext('2d');
-            ctx.height = 100;
-            options = {
-                 responsive: true,
-                maintainAspectRatio: false
-    //scales: {
-    //    xAxes: [{
-    //        gridLines: {
-    //            offsetGridLines: true
-    //        }
-    //    }]
-    //}
-};
-            var myBarChart = new Chart(ctx, {
-
-                type: 'bar',
-                data: {
-                    labels: label,
-                    datasets: [{
-                        label: 'Releases',
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data:datastoreReleaseCount
-                    }]
+     
                 }
+
+
+    var lineChartwork;
+        function drawChartDeadLine() {
+                  //  WorkitemStore
+                        var date = new Date();
+        date.setDate(date.getDate() - 21);
+        console.log(date);
+       // alert(date);
+        var i;
+        var datestore1 = [];
+        for (i = 0; i < 21; i++) {
+            var date1 = new Date();
+            date1.setDate(date1.getDate()+1 - 21);
+            date1.setDate(date1.getDate() + i);
+           // var Faildate = new Date(FailedBuildListStore[k].lastChangedDate);
+            var ddd = date1.getDate();
+            var mmm = date1.getMonth(); //January is 0!
+            mmm = mmm + 1;
+                                    var yyyyy = date1.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+            datestore1.push(Faildate);//(date.getDate());
+            //text += cars[i] + "<br>";
+        }
+        var LineDataStore1 = [];
+        $.each(datestore1, function (yi) {
+            console.log("expired workitem Check");
+            console.log(yi);
+            var Datecountwork1 = 0;
+            $.each(WorkitemStore, function (zi) {
+                console.log(zi);
+                 var Faildate = new Date(WorkitemStore[zi]["fields"]["System.CreatedDate"]);
+                                    var ddd = Faildate.getDate();
+                var mmm = Faildate.getMonth(); //January is 0!
+                mmm = mmm + 1;
+                                    var yyyyy = Faildate.getFullYear();
+            Faildate = mmm + '/' + ddd + '/' + yyyyy;
+                if (Faildate == datestore1[yi]) {
+                    Datecountwork1 = Datecountwork1 + 1;
+                 }
             });
-                options: {}
-  //  var options = {
-  //    legend: { position: 'none' },
-  //      bar: { groupWidth: "50%" },
-  //      colors: ['#00FA9A'],
-  //  };
+            LineDataStore1.push(Datecountwork1);
+         });
+        var lastchangedArray = [];
+        
+    var canvas = document.getElementById("workitemchart");
+    var ctx = canvas.getContext("2d");
 
-  //  chart = new google.charts.Bar(document.getElementById('top_x_div_ReleaseBar'));
-  //             chart.draw(data, google.charts.Bar.convertOptions(options));
-  //packages: ['bar']
-            //document.getElementById("overlay").style.display = "none";
-            //document.getElementById("load").hidden = true;
-        }
-
-        function drawLineChartcritBug() {
-            //document.getElementById("overlay").style.display = "block";
-            //document.getElementById("load").hidden = false;
-            //var data = new google.visualization.arrayToDataTable([
-            //    ['', 'Total: '],
-
-            //    [dataLineChartStoreWorkItem[0]["ProjectName"], dataLineChartStoreWorkItem[0]["CriticalBugCount"]],
-            //]);
-            var bugstore = 0;
-
-            $.each(dataLineChartStoreWorkItem, function (i) {  //  dataLineChartStore dataLineChartStoreWorkItem
-                bugstore = bugstore + dataLineChartStoreWorkItem[i].CriticalBugCount;
-
-            })
-            $('#orgcriticalbug').text(bugstore);
-
-            var bug;
-            if (bugstore == 5) {
-                bug = 93;
-            }
-            else if (bugstore > 5) {
-                bug = 100;
-            }
-            else if (bugstore == 3) {
-                bug = 75;
-            }
-            else if (bugstore == 4) {
-                bug = 85;
-            }
-            else if (bugstore == 2) {
-                bug = 50;
-            }
-            else if (bugstore == 1) {
-                bug = 25;
-            }
-            else {
-                bug = 0;
-            }
-            console.log(bug);
-            //graud chart
-            var data = google.visualization.arrayToDataTable([
-                ['Label', 'Value'],
-
-                ['Critical Bugs', bug]
-            ]);
-
-            var options = {
-                width: 450, height: 200,
-                redFrom: 90, redTo: 100,
-                yellowFrom: 75, yellowTo: 90,
-                minorTicks: 5
-            };
-
-            var chart = new google.visualization.Gauge(document.getElementById('chart_div_criticalBug'));
-             chart.draw(data, options);
-            //document.getElementById("overlay").style.display = "none";
-            //document.getElementById("load").hidden = true;
-        }
-        //
-        function OrgWorkItemExpired() {
-            //document.getElementById("overlay").style.display = "block";
-            //document.getElementById("load").hidden = false;
-                       // add each element via forEach loop
-
-            var grapharea = document.getElementById("top_x_div_workitem").getContext("2d");
-            //if()
-            //var myChart = new Chart(grapharea, { type: 'bar', data: barData, options: barOptions });
-            $('#top_x_div_workitem').html("");
-
-           // myChart.destroy();
-
-            var label = [];
-            var datastoreworkitemCount = [];
-                       $.each(dataLineChartStore,function (i) {
-                label.push(dataLineChartStore[i].ProjectName);
-            })
-            console.log(label);
-            var workitemDisplay = 0;
-            $.each(dataLineChartStoreWorkItem,function (j) {  //dataLineChartStoreWorkItem
-                datastoreworkitemCount.push(dataLineChartStoreWorkItem[j].WorkItemDeadLineCount);
-                var storeData = parseInt(dataLineChartStoreWorkItem[j].WorkItemDeadLineCount);
-                workitemDisplay = workitemDisplay + storeData;
-                console.log(workitemDisplay);
-            })
-            console.log(workitemDisplay);
-            $('#orgworkitem').text(workitemDisplay);
-            var ctx = document.getElementById('top_x_div_workitem').getContext('2d');
             options = {
                  responsive: true,
                 maintainAspectRatio: false
-    //scales: {
-    //    xAxes: [{
-    //        gridLines: {
-    //            offsetGridLines: true
-    //        }
-    //    }]
-    //}
-};
-            var myBarChart = new Chart(ctx, {
-                //type: 'bar',
-                 type: 'horizontalBar',
+                    };
+
+                    if (lineChartwork != undefined) {
+                        lineChartwork.destroy();
+                    }
+            lineChartwork = new Chart(ctx, {
+                 type: 'line',
                 data: {
-                    labels: label,
+                    labels: datestore1,
                     datasets: [{
-                        label: 'WorkItems Exceeded Finishing date',
-                        backgroundColor: 'rgb(153,50,204)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data:datastoreworkitemCount
+                        label: 'Slake WorkItems',
+                        //  backgroundColor: 'rgb(153,50,204)',
+                         borderColor: 'rgb(255, 99, 132)',
+                        data: LineDataStore1
                     }]
                 }
             });
              options: {}
-
-        }
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("load").hidden = true;
+                    }
 </script>

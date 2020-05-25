@@ -347,7 +347,9 @@ namespace DevOpsTestCases.BL
             BuildModel testData = new BuildModel();
             try
             {
-                string api = string.Format("https://dev.azure.com/{0}/{1}/_apis/build/builds?api-version=5.1", Org.OrganizationName, ProjectName);//Org.ProjectName);
+                //string api = string.Format("https://dev.azure.com/{0}/{1}/_apis/build/builds?api-version=5.1", Org.OrganizationName, ProjectName);//Org.ProjectName);
+                // https://dev.azure.com/" + org + "/" + proj + "/_apis/build/builds?minTime=" + DateTime.Now.AddDays(-7).ToString("MM/dd/yyyy") + "&api-version=5.1"
+                string api = "https://dev.azure.com/" + Org.OrganizationName + "/" + Org.ProjectName + "/_apis/build/builds?minTime=" + DateTime.Now.AddDays(-40).ToString("MM/dd/yyyy") + "&api-version=5.1";//Org.ProjectName);
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Accept.Clear();
@@ -415,7 +417,8 @@ namespace DevOpsTestCases.BL
             ReleaseModel1 ReleaseList = new ReleaseModel1();
             try
             {
-                string api = string.Format("https://vsrm.dev.azure.com/{0}/{1}/_apis/Release/releases?$expand=Environments&api-version=5.1", Org.OrganizationName, projectName);//Org.ProjectName);
+                //string api = string.Format("https://vsrm.dev.azure.com/{0}/{1}/_apis/Release/releases?$expand=Environments&api-version=5.1", Org.OrganizationName, projectName);//Org.ProjectName);
+                string api ="https://vsrm.dev.azure.com/" + Org.OrganizationName + "/" + projectName + "/_apis/Release/releases?minCreatedTime=" + DateTime.Now.AddDays(-40).ToString("MM/dd/yyyy") + "&$expand=Environments&api-version=5.1";
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Accept.Clear();

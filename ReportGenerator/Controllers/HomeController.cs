@@ -39,6 +39,7 @@ namespace ReportGenerator.Controllers
                 AccessDetails accessToken = new AccessDetails();
                 accessToken.access_token = accessDetails.access_token;
                 Org.pat = accessDetails.access_token;
+              //  Org.pat = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", "", accessDetails.access_token)));
                 Session["AT"] = accessDetails.access_token;//accessToken.access_token;
                 return RedirectToAction("Reports", "Home");
             }
@@ -72,7 +73,9 @@ namespace ReportGenerator.Controllers
         {
             Profile profileResp = logic.profile();
             Organization orgList = logic.Organization(profileResp.id);
-            string output = JsonConvert.SerializeObject(orgList);
+            var OrderData = orgList.value.OrderBy(x => x.accountName);
+            //string output = JsonConvert.SerializeObject(orgList);
+            string output = JsonConvert.SerializeObject(OrderData);
             return output;
         }
 
@@ -80,9 +83,11 @@ namespace ReportGenerator.Controllers
         {
             Org.OrganizationName = orgName;
             RespData profileResp = logic.ProjectNamesStore();
+            var OrderData = profileResp.value.OrderBy(x => x.name);
             Session["projectList"] = profileResp;
-            
-            string output = JsonConvert.SerializeObject(profileResp);
+
+        //  string output = JsonConvert.SerializeObject(profileResp);
+            string output = JsonConvert.SerializeObject(OrderData);
             return output;
         }
         public ActionResult About()
@@ -96,8 +101,10 @@ namespace ReportGenerator.Controllers
             Org.ProjectName = projectname;
             BuildModel buildstorecount = logic.BuildDetailsCount(projectname);
             Session["BuildCount"] = buildstorecount.count;
+            Session["BuildSprint"] = buildstorecount; //BuildModel
+            //var daysfilter=buildstorecount.value.Where(x=>x.lastChangedDate==)
             ViewBag.BuildCount = buildstorecount.count;
-            List<ValueBuild> buildstore = logic.BuildDetails(projectname);
+           // List<ValueBuild> buildstore = logic.BuildDetails(projectname);
             //string output = JsonConvert.SerializeObject(buildstore);
             string output = JsonConvert.SerializeObject(buildstorecount);
             return output;
@@ -107,8 +114,9 @@ namespace ReportGenerator.Controllers
             Session.Remove("ReleaseCount");
             ReleaseModel1 releseCount = logic.ReleaseCount(projectname);
             Session["ReleaseCount"] = releseCount.count;
+            Session["ReleaseSprint"] = releseCount; //ReleaseModel1
             ViewBag.ReleaseCount = releseCount.count;
-            List<ValueRelease> releasestore = logic.Release(projectname);
+          //  List<ValueRelease> releasestore = logic.Release(projectname);
             string output = JsonConvert.SerializeObject(releseCount);
             return output;
         }
@@ -174,6 +182,14 @@ namespace ReportGenerator.Controllers
             return iterationsList;
         }
 
+        public JsonResult iterationMethod(string ORG, string project)
+        {
+            List<IterationDetails> iterationStore = new List<IterationDetails>();
+            iterationStore=IterationsList(ORG, project);
+            //string output = JsonConvert.SerializeObject(iterationStore);
+            // return output;
+            return Json(iterationStore, JsonRequestBehavior.AllowGet);
+        }
         //public JsonResult Workitem()
         //{
         //    logic.GetWorkItem();
@@ -256,7 +272,9 @@ namespace ReportGenerator.Controllers
         }
         public object Workitem(string projectName)
         {
-            List<ValueNew> workList = Workitemlist(projectName);
+            //List<ValueNew> workList = Workitemlist(projectName);
+            
+             List<ValueNew> workList = Workitemlist123(projectName);
             string output = JsonConvert.SerializeObject(workList);
             return output;
         }
@@ -332,7 +350,7 @@ namespace ReportGenerator.Controllers
                 i.totalworkItemCounts = urlResponse.count;
                 //Types.Add(i);
                 sessioncount += 1;
-                if (i.fields.WorkItemType == "Bug" || i.fields.WorkItemType == "Task" || i.fields.WorkItemType == "UserStory")
+                if (i.fields.WorkItemType == "Bug" || i.fields.WorkItemType == "Task" || i.fields.WorkItemType == "User Story" || i.fields.WorkItemType == "Product Backlog Item")
                 {
                     foreach (var iter in iterationsListStore)
                     {
@@ -613,8 +631,79 @@ namespace ReportGenerator.Controllers
             return Types;
         }
         //
-    }
 
+
+        //Sprint WorkItems
+        public object ReleaseSprint(string orgName, string projectName, string sprintName)
+        {
+            List<ReleaseModel1> releaseSprintList = new List<ReleaseModel1>();
+            List<IterationDetails> sprintStore = (List<IterationDetails>)Session["iterationsList"];
+            //Session["ReleaseSprint"] = releseCount; //ReleaseModel1
+            ReleaseModel1 releaseSprint = (ReleaseModel1)Session["ReleaseSprint"];
+            DateTime checkDate1 = DateTime.Now.AddMonths(-1);
+            DateTime checkDate2 = DateTime.Now.AddMonths(1);
+            DateTime Today = DateTime.Today;
+            if(Today >=checkDate1 && Today <= checkDate2)
+            {
+
+            }
+
+            //if
+            foreach (var sprintData in sprintStore)
+            {
+                foreach (var sprintData1 in sprintData.value)
+                {
+                    if (sprintData1.path == sprintName)
+                    {
+                        foreach (var releaseData in releaseSprint.value)
+                        {
+                            DateTime releaseFinishTime = releaseData.createdOn;
+                            DateTime startDate = Convert.ToDateTime(sprintData1.attributes.startDate);
+                            DateTime finishDate = Convert.ToDateTime(sprintData1.attributes.finishDate);
+                            if (releaseFinishTime >= startDate && releaseFinishTime <= finishDate)
+                            {
+                                releaseSprintList.Add(releaseSprint);
+                                //is between the 2 dates
+                            }
+                        }
+                    }
+                }
+            }
+            string output = JsonConvert.SerializeObject(releaseSprintList);
+            return output;
+        }
+        public object BuildSprint(string orgName, string projectName,string sprintName)
+        {
+            List<BuildModel> BuildSprintList = new List<BuildModel>();
+            List<IterationDetails> sprintStore = (List<IterationDetails>)Session["iterationsList"];
+          //  Session["BuildSprint"] = buildstorecount; //BuildModel
+            BuildModel buildSprint = (BuildModel)Session["BuildSprint"];
+            foreach (var sprintData in sprintStore)
+            {
+                foreach (var sprintData1 in sprintData.value)
+                {
+                    if (sprintData1.path == sprintName)
+                    {
+                        foreach (var buildData in buildSprint.value)
+                        {
+                            DateTime buildFinishTime = buildData.finishTime;
+                            DateTime startDate = Convert.ToDateTime(sprintData1.attributes.startDate);
+                            DateTime finishDate = Convert.ToDateTime(sprintData1.attributes.finishDate);
+                            if (buildFinishTime >= startDate && buildFinishTime <= finishDate)
+                            {
+                                BuildSprintList.Add(buildSprint);
+                                //is between the 2 dates
+                        }
+                        }
+                    }
+                }
+            }
+            string output = JsonConvert.SerializeObject(BuildSprintList);
+            return output;
+           
+        }
+    }
+    
 
 public class WorkCounts
     {

@@ -952,8 +952,6 @@
                     //dataType: 'json',
                     success: function (data1) {
 
-                        //document.getElementById("overlay").style.display = "none";
-                        //document.getElementById("load").hidden = true;
                         data = JSON.parse(data1);
                         dataLineChartStore = [];
                         dataLineChartStore = data;
@@ -962,12 +960,6 @@
                         drawLineChartrelease();
 
                          google.charts.load('current', {'packages':['gauge']});
-                        //google.charts.setOnLoadCallback(drawLineChartcritBug);
-                        //OrgWorkItemExpired();
-                        //google.charts.load('current', {'packages':['bar']});
-                        //google.charts.setOnLoadCallback(drawLineChart);
-                      //  google.charts.setOnLoadCallback(drawLineChartrelease);
-
                     }
                 })
             //Critical Bugs and Work Item load
@@ -999,8 +991,6 @@
 
            function drawLineChart()
            {
-               //document.getElementById("overlay").style.display = "block";
-               //document.getElementById("load").hidden = false;
                    console.log('adding to the DataStore')
 
                    console.log(dataLineChartStore)
@@ -1019,25 +1009,13 @@
                $('#orgbuild').text(buildDisplay);
                console.log(buildDisplay);
             console.log(datastoreBuildCount);
-    //dataLineChartStore.forEach(function(value, index, array){
-    //    data.addRow([
-    //      value.ProjectName,
-    //      value.ReleaseCount
-    //  ]);
-    //})
 
             var ctx = document.getElementById('top_x_div').getContext('2d');
                ctx.height = 100;
                options = {
                     responsive: true,
                     maintainAspectRatio: false
-    //scales: {
-    //    xAxes: [{
-    //        gridLines: {
-    //            offsetGridLines: true
-    //        }
-    //    }]
-    //}
+    
 };
             var myBarChart = new Chart(ctx, {
                 type: 'bar',
@@ -1059,16 +1037,6 @@
 }
         var chart;
         function drawLineChartrelease() {
-    //document.getElementById("overlay").style.display = "block";
-    //document.getElementById("load").hidden = false;
-            //   var data = new google.visualization.arrayToDataTable([
-           // $.each(dataLineChartStore, function (i) {
-            //['', 'Total: '],
-                    // add each element manually
-                   //[dataLineChartStore[0]["ProjectName"], dataLineChartStore[0]["ReleaseCount"]],
-             //  });
-              // ]);
-
             console.log(dataLineChartStore)
             // add each element via forEach loop
             var label = [];
@@ -1085,24 +1053,12 @@
             })
             $('#orgrelease').text(releaseDisplay);
             console.log("Org release total count" + releaseDisplay)
-    //dataLineChartStore.forEach(function(value, index, array){
-    //    data.addRow([
-    //      value.ProjectName,
-    //      value.ReleaseCount
-    //  ]);
-    //})
             var ctx = document.getElementById('top_x_div_ReleaseBar').getContext('2d');
             ctx.height = 100;
             options = {
                  responsive: true,
                 maintainAspectRatio: false
-    //scales: {
-    //    xAxes: [{
-    //        gridLines: {
-    //            offsetGridLines: true
-    //        }
-    //    }]
-    //}
+    
 };
             var myBarChart = new Chart(ctx, {
 
@@ -1118,32 +1074,12 @@
                 }
             });
                 options: {}
-  //  var options = {
-  //    legend: { position: 'none' },
-  //      bar: { groupWidth: "50%" },
-  //      colors: ['#00FA9A'],
-  //  };
-
-  //  chart = new google.charts.Bar(document.getElementById('top_x_div_ReleaseBar'));
-  //             chart.draw(data, google.charts.Bar.convertOptions(options));
-  //packages: ['bar']
-            //document.getElementById("overlay").style.display = "none";
-            //document.getElementById("load").hidden = true;
         }
 
         function drawLineChartcritBug() {
-            //document.getElementById("overlay").style.display = "block";
-            //document.getElementById("load").hidden = false;
-            //var data = new google.visualization.arrayToDataTable([
-            //    ['', 'Total: '],
-
-            //    [dataLineChartStoreWorkItem[0]["ProjectName"], dataLineChartStoreWorkItem[0]["CriticalBugCount"]],
-            //]);
             var bugstore = 0;
-
             $.each(dataLineChartStoreWorkItem, function (i) {  //  dataLineChartStore dataLineChartStoreWorkItem
                 bugstore = bugstore + dataLineChartStoreWorkItem[i].CriticalBugCount;
-
             })
             $('#orgcriticalbug').text(bugstore);
 
@@ -1186,18 +1122,9 @@
 
             var chart = new google.visualization.Gauge(document.getElementById('chart_div_criticalBug'));
              chart.draw(data, options);
-            //document.getElementById("overlay").style.display = "none";
-            //document.getElementById("load").hidden = true;
         }
-        //
         function OrgWorkItemExpired() {
-            //document.getElementById("overlay").style.display = "block";
-            //document.getElementById("load").hidden = false;
-                       // add each element via forEach loop
-
             var grapharea = document.getElementById("top_x_div_workitem").getContext("2d");
-            //if()
-            //var myChart = new Chart(grapharea, { type: 'bar', data: barData, options: barOptions });
             $('#top_x_div_workitem').html("");
 
            // myChart.destroy();
@@ -1221,13 +1148,6 @@
             options = {
                  responsive: true,
                 maintainAspectRatio: false
-    //scales: {
-    //    xAxes: [{
-    //        gridLines: {
-    //            offsetGridLines: true
-    //        }
-    //    }]
-    //}
 };
             var myBarChart = new Chart(ctx, {
                 //type: 'bar',
@@ -1243,5 +1163,4 @@
                 }
             });
              options: {}
-
         }
